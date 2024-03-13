@@ -1,0 +1,13 @@
+.main-thumbnail-label {
+  width: 100%;
+  height: 250px;
+  background: pink;
+  display: flex;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  /* display: grid;
+  place-items: center;
+  font-size: 10rem;
+  background: linear-gradient(pink 40%, aqua);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; */
+}

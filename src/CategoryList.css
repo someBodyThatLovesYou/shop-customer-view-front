@@ -1,0 +1,13 @@
+.category-container {
+  height: 600px;
+}
+
+.category-div {
+  display: grid;
+  padding-left: 20px;
+  /* background-color: red !important; */
+  transition: all ease 150ms;
+}
+.category-div:hover {
+  background-color: cornflowerblue !important;
+}

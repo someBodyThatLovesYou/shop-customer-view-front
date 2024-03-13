@@ -1,0 +1,10 @@
+.products-section {
+    display: flex;
+
+}
+
+.product {
+    margin: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}

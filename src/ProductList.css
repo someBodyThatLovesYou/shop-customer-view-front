@@ -1,0 +1,17 @@
+.main-prod-sec {
+}
+
+.main-prod-sec {
+}
+
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.product-div {
+  flex: 1 0 200px;
+  /* background: red; */
+  margin: 10px;
+}
