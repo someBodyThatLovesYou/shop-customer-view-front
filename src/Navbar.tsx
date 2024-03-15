@@ -6,7 +6,7 @@ const header = () => {
   return (
     <>
       <header className="navHeader rounded container text-dark">
-        <div className="navHeader-item logo-item"><a href="#" data-tooltip = 'logo'><img src={Logo} alt="Logo" /></a></div>
+        <div className="navHeader-item logo-item"><a href="/" data-tooltip = 'logo'><img src={Logo} alt="Logo" /></a></div>
         <div className="navHeader-item search-item">
           <div className="search-bar">
             <input type="search" placeholder="Search In Products .." />

@@ -38,9 +38,10 @@ const CategoryList = () => {
         </div>
       )}
       {categories.map((category) => (
+        // intire body for each category
         <a
           // href="#"
-          href={`/category/${category.name}`}
+          href={`/category/${category.category_id}`}
           className="category-div my-4 py-4 rounded-4 bg-light"
           key={category.category_id}
         >

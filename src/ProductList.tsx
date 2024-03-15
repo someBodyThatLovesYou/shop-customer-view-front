@@ -44,8 +44,9 @@ function ProductList() {
         </div>
       )}
       {products.map((product) => (
+        // intire body for each products
         <a
-          href={`/products/${product.name}`}
+          href={`/products/${product.product_id}`}
           className="container bg-light rounded-4 product-div"
           key={product.product_id}
           onClick={() => handleProductClick(product.product_id)}
