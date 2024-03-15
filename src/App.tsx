@@ -30,7 +30,7 @@ const App = () => {
           <CategoryPage />
           </>
         } />
-        {/* <Route path="*" element={<FOURoFOUR />} /> */}
+        <Route path="*" element={<FOURoFOUR />} />
       </Routes>
     </Router>
   );
