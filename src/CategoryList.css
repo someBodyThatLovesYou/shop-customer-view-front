@@ -4,10 +4,20 @@
 
 .category-div {
   display: grid;
-  padding-left: 20px;
+  padding: 20px;
   /* background-color: red !important; */
   transition: all ease 150ms;
 }
 .category-div:hover {
-  background-color: cornflowerblue !important;
+  background-color: #dcdafe !important;
+  color: white;
+}
+
+.name-img-part {
+  display: flex;
+  align-items: center;
+}
+
+.category-image {
+  margin-left: auto;
 }

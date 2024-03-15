@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import './CategoryList.css'
+import "./CategoryList.css";
 
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
@@ -9,7 +9,7 @@ const CategoryList = () => {
   useEffect(() => {
     const fetchCategory = async () => {
       try {
-        const response = await fetch("http://127.0.0.1/main/categories");
+        const response = await fetch("http://127.0.0.1:5000/Pcategories");
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -38,18 +38,21 @@ const CategoryList = () => {
         </div>
       )}
       {categories.map((category) => (
-        <div
-          className="category-div my-4 py-3 rounded-4 bg-light"
+        <a
+          // href="#"
+          href={`/category/${category.name}`}
+          className="category-div my-4 py-4 rounded-4 bg-light"
           key={category.category_id}
-          // onClick={}
         >
-          <h3>{category.name}</h3>
-          <p>{category.description}</p>
-        </div>
+          <div className="name-img-part">
+            <h4>{category.name}</h4>
+            <img width={21} height={21} className="category-image" src={`data:image/png;base64,${category.image}`} alt="" />
+          </div>
+          {/* <p>{category.description}</p> */}
+        </a>
       ))}
     </div>
   );
 };
-
 
 export default CategoryList;

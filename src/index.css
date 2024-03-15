@@ -11,6 +11,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+::-webkit-scrollbar {
+  background-color: transparent;
+  width: 8px;
+  border-radius: 99999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: aquamarine;
+}
+
 a {
   color: darkslategrey;
   text-decoration: none;
