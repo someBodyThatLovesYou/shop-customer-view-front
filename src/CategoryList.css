@@ -5,7 +5,7 @@
 .category-div {
   display: grid;
   padding: 20px;
-  /* background-color: red !important; */
+  padding-block: 30px;
   transition: all ease 150ms;
 }
 .category-div:hover {

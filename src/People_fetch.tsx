@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./productFetcherStyle.css";
 
+const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+
 const DataFetcher = () => {
   const [productsData, setproductsData] = useState(null);
   const [productsLoading, setproductsLoading] = useState(true);
@@ -9,7 +11,7 @@ const DataFetcher = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://127.0.0.1/main");
+        const response = await fetch(`${API_BASE_URL}/main`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

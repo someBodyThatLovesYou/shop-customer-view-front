@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from "react";
 import "./ProductList.css";
 
+const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+
 function ProductList() {
   const [products, setProducts] = useState([]);
   const [ProductLoading, setProductLoading] = useState(true);
   const [ProductError, setProductError] = useState(null);
-  const [selectedProductId, setSelectedProductId] = useState(null);
 
-  const handleProductClick = (productId) => {
-    setSelectedProductId(productId);
-  };
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/products");
+        const response = await fetch(`${API_BASE_URL}/products`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -51,10 +49,11 @@ function ProductList() {
           key={product.product_id}
           onClick={() => handleProductClick(product.product_id)}
         >
-          <div className="img-label"><img src={`data:image/jpeg;base64,${product.image}`} alt={product.name} className="product-img rounded-4 p-1" /></div>
+          <div className="img-label rounded-4"><img src={`data:image/jpeg;base64,${product.image}`} alt={product.name} className="product-img rounded-5 p-1" /></div>
           <div className="text-part">
             <h2>{product.name}</h2>
             <h6>{product.description}</h6>
+            <p><strong><center>{product.price}$</center></strong></p>
           </div>
         </a>
       ))}

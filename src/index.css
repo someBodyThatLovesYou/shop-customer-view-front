@@ -14,11 +14,11 @@
 ::-webkit-scrollbar {
   background-color: transparent;
   width: 8px;
-  border-radius: 99999px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: aquamarine;
+  background-color: cadetblue;
+  border-radius: 99999px;
 }
 
 a {

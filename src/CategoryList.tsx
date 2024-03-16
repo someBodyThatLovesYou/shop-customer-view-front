@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "./CategoryList.css";
 
+const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
@@ -9,7 +11,7 @@ const CategoryList = () => {
   useEffect(() => {
     const fetchCategory = async () => {
       try {
-        const response = await fetch("http://127.0.0.1:5000/Pcategories");
+        const response = await fetch(`${API_BASE_URL}/Pcategories`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -42,7 +44,7 @@ const CategoryList = () => {
         <a
           // href="#"
           href={`/category/${category.category_id}`}
-          className="category-div my-4 py-4 rounded-4 bg-light"
+          className="category-div my-4 rounded-4 bg-light"
           key={category.category_id}
         >
           <div className="name-img-part">

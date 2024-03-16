@@ -27,15 +27,25 @@
 }
 
 .text-part {
-  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 50%;
+  flex: 1;
 }
 
-.img-label {
-  width: 50%;
+.text-part p {
+  opacity: .3;
+}
+
+.product-div .img-label {
+  flex: 1;
+  min-height: 50%;
 }
 
 .product-img {
+  margin-top: 10px;
   object-fit: contain;
   width: 100%;
-  height: 100%;
+  height: 90%;
 }
