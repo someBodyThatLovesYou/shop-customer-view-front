@@ -1,0 +1,18 @@
+import React from 'react';
+
+const ImageComponent = () => {
+ // Example base64 strings for different image formats
+ const pngBase64 = 'data:image/png;base64,iVBORw0KG...'; // Replace with your actual base64 string
+ const jpgBase64 = 'data:image/jpeg;base64,/9j/4AAQSk...'; // Replace with your actual base64 string
+ const gifBase64 = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'; // Replace with your actual base64 string
+
+ return (
+    <div>
+      <img src={pngBase64} alt="PNG Image" />
+      <img src={jpgBase64} alt="JPG Image" />
+      <img src={gifBase64} alt="GIF Image" />
+    </div>
+ );
+};
+
+export default ImageComponent;

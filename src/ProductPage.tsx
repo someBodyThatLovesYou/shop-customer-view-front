@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./ProductPage.css";
-import thumbnail from "./assets/thumbnail/orange-product.jpg";
-
+// import thumbnail from "./assets/thumbnail/orange-product.jpg";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
+// interface ProductPageProps {
+//   userName: string;
+//   password: string;
+// }
+
+// const ProductPage: React.FC<ProductPageProps> = ({ userName, password }) => {
 const ProductPage = () => {
   const { id } = useParams();
   // product
   const [product, setProduct] = useState([]);
+  const [isProduct, setIsproduct] = useState(false);
   const [ProductLoading, setProductLoading] = useState(true);
   const [ProductError, setProductError] = useState(null);
   // Category Name
@@ -17,6 +23,7 @@ const ProductPage = () => {
   // const [CNLoading, setCNLoading] = useState(true);
   // const [CNError, setCNError] = useState(null);
 
+  // product and category name fetch
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -26,6 +33,7 @@ const ProductPage = () => {
         }
         const data = await response.json();
         setProduct(data);
+        setIsproduct(true);
         setProductLoading(false);
       } catch (error) {
         setProductError(error.message);
@@ -51,60 +59,75 @@ const ProductPage = () => {
     //   }
     // };
     // fetchCN();
-    
   }, []);
 
-  console.log(API_BASE_URL)
+  const handleAddToCart = () => {
+    fetch(`${API_BASE_URL}/cart`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        product_id: id,
+        quantity: 1,
+        customer_id: 2,
+        // updated_at: new Date().toISOString(), // Current timestamp
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Access the 'message' from the response
+        console.log(data.message); // Outputs: 'Item added to cart'
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
   return (
     <>
       <div className="ULTIMA-BD">
         <div className="container mt-2">
           <div className="sec-top">
             <div className="thumbnail rounded-5">
-              {/* <img className="rounded-5" src={thumbnail} alt="" /> */}
               <div className="product-details-text">
                 <h1>
                   <strong>Product Details</strong>
                 </h1>
               </div>
             </div>
-            <div className="product-part m-auto rounded-5">
-              {ProductLoading && (
-                <h4 className="container text-success">
-                  Getting Product Loading...
-                </h4>
-              )}
-              {ProductError && (
-                <h5 className="container">
-                  <h6 className="text-danger">ERROR WHILE GETTING PRODUCTS </h6>
-                  : {ProductError}
-                </h5>
-              )}
-              <div className="Nm-Dscp-sec">
-                {/* name & description */}
-                <h1>
-                  <strong>{product.name}</strong>
-                </h1>
-                <div className="desc">
-                  <h6>{product.description}</h6>
+            {/* intire product_body */}
+            {isProduct && (
+              <div className="product-part m-auto rounded-5">
+                <div className="Nm-Dscp-sec">
+                  <p>
+                    <strong>{product.name}</strong>
+                  </p>
+                  <div className="desc">
+                    <h6>{product.description}</h6>
+                  </div>
                 </div>
-              </div>
-              <div className="image-prc-sec">
-                <div className="img-label">
-                  <img
-                    src={`data:image/jpeg;base64,${product.image}`}
-                    alt={product.name}
-                    className="product-img rounded-circle"
-                  />
-                  <center>
-                    <h3>
-                      <strong>{product.price}$</strong>
-                    </h3>
-                  </center>
+                <div className="image-prc-sec">
+                  <div className="img-label">
+                    <img
+                      src={`data:image/jpeg;base64,${product.image}`}
+                      alt={product.name}
+                      className="product-img rounded-circle"
+                    />
+                    <center>
+                      <h3>
+                        <strong>{product.price}$</strong>
+                      </h3>
+                    </center>
+                  </div>
                 </div>
-              </div>
-              <div className="Cnm-ordr">
-                {/* {CNLoading && (
+                <div className="Cnm-ordr">
+                  {/* {CNLoading && (
                   <h6 className="container text-success">
                     Getting category Loading...
                   </h6>
@@ -116,13 +139,30 @@ const ProductPage = () => {
                     </h6>
                     : {CNError}
                   </h5>
-                )} */}
-                {/* {CN && CN.name && <h3>{CN.name}</h3> } */}
-                <div className="order_btn">
-                  <button>Add to Cart</button>
+                )}
+                {CN && CN.name && <h3>{CN.name}</h3> } */}
+                  <div className="order_btn">
+                    <button
+                      name="Add_to_cart"
+                      onClick={() => handleAddToCart()}
+                    >
+                      Add to Cart
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
+            {ProductLoading && (
+              <h4 className="container text-success">
+                Getting Product Loading...
+              </h4>
+            )}
+            {ProductError && (
+              <h5 className="container">
+                <h6 className="text-danger">ERROR WHILE GETTING PRODUCTS </h6>:{" "}
+                {ProductError}
+              </h5>
+            )}
           </div>
         </div>
       </div>

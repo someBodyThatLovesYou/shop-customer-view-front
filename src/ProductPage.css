@@ -1,5 +1,5 @@
 .ULTIMA-BD {
-  height: 10000px;
+  height: 750px;
 }
 
 .sec-top {
@@ -42,6 +42,9 @@
   padding-top: 80px;
   display: flex;
   justify-content: center;
+  /* font-family: "DotGothic16", sans-serif; */
+  /* font-family: "Madimi One", sans-serif; */
+  /* font-family: "Averia Gruesa Libre", system-ui; */
 }
 
 .Nm-Dscp-sec,
@@ -56,6 +59,7 @@
   max-width: 30%;
   padding-top: 50px;
   overflow-wrap: break-word;
+  font-size: 50px;
 }
 
 .desc {
@@ -69,7 +73,7 @@
 }
 
 .image-prc-sec {
-
+  
 }
 .image-prc-sec .img-label img{
     object-fit: cover;
@@ -82,6 +86,8 @@
 .Cnm-ordr {
     box-sizing: border-box;
     padding-left: 50px;
+    display: flex;
+    align-items: center;
 }
 
 .order_btn button {
