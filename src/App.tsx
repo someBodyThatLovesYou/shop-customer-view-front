@@ -7,10 +7,17 @@ import CategoryPage from "./CategoryPage";
 import FOURoFOUR from "./PageNotFound";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import Shopping_Cart from "./cart";
 
 const App = () => {
-  // const [userName, setUserName] = useState('');
-  // const [password, setPassword] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [customer, setCustomer] = useState({
+    id: "",
+    name: "",
+    email: "",
+    phone: "",
+    registration_date: "",
+  });
 
   return (
     <Router>
@@ -29,7 +36,6 @@ const App = () => {
           element={
             <>
               <Navbar />
-              {/* <ProductPage userName={userName} password={password} /> */}
               <ProductPage />
             </>
           }
@@ -43,8 +49,38 @@ const App = () => {
             </>
           }
         />
-        <Route path="/Cart/:id" element={<div>Cart</div>} />
-        <Route path="/Profile/:id" element={<div>Profile</div>} />
+        <Route
+          path="/Profile/:id"
+          element={
+            isAuthenticated ? (
+              <>
+                <Navbar />
+                <div>Profile</div>
+              </>
+            ) : (
+              <>
+                <Navbar />
+                <Login />
+              </>
+            )
+          }
+        ></Route>
+        <Route
+          path="/Cart/:id"
+          element={
+            isAuthenticated ? (
+              <>
+                <Navbar />
+                <Shopping_Cart />
+              </>
+            ) : (
+              <>
+                <Navbar />
+                <Login />
+              </>
+            )
+          }
+        ></Route>
         <Route
           path="/Login"
           element={

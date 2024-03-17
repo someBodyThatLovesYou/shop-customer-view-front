@@ -30,15 +30,14 @@ const header = () => {
           <div className="navHeader-item profile-item">
             <a 
               // href={`/Profile/${userName}`} 
-              href="/Profile" 
+              href="/Profile"
               data-tooltip="profile page"
             >
               <div className="rounded-circle profile-label">prf</div>
             </a>
           </div>
           <a 
-            // href={`/LoginSignUp/${userName}`} 
-            href="/LoginSignUp" 
+            href="/Login" 
             className="navHeader-item login-signup"
           >
             Login / SignUp
