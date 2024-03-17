@@ -6,6 +6,7 @@ import ProductPage from "./ProductPage";
 import CategoryPage from "./CategoryPage";
 import FOURoFOUR from "./PageNotFound";
 import Login from "./Login";
+import SignUp from "./SignUp";
 
 const App = () => {
   // const [userName, setUserName] = useState('');
@@ -45,11 +46,20 @@ const App = () => {
         <Route path="/Cart/:id" element={<div>Cart</div>} />
         <Route path="/Profile/:id" element={<div>Profile</div>} />
         <Route
-          path="/LoginSignUp/:id"
+          path="/Login"
           element={
             <>
               <Navbar />
               <Login />
+            </>
+          }
+        />
+        <Route
+          path="/SignUp"
+          element={
+            <>
+              <Navbar />
+              <SignUp />
             </>
           }
         />

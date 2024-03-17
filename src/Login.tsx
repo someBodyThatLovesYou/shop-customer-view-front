@@ -42,30 +42,33 @@ const Login = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        placeholder="Name"
-        required
-      />
-      <input
-        type="tel"
-        name="phone"
-        value={formData.phone}
-        onChange={handleChange}
-        placeholder="phone number"
-        required
-      />
-      <button type="submit">Submit</button>
-      {/* {message === "User exists" && <h1> user Exicts</h1>} */}
-      {/* {message === "User does not exist" && (
-        <h1> take ur ass and go for a nauthty sign up !</h1>
-      )} */}
-      {/* {error && <h2>Error: {error}</h2>} */}
-    </form>
+    <>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Name"
+            required
+          />
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="phone number"
+            required
+          />
+          <button type="submit">Login</button>
+          {/* {message === "User exists" && <h1> user Exicts</h1>} */}
+          {/* {message === "User does not exist" && (
+            <h1> take ur ass and go for a nauthty sign up !</h1>
+          )} */}
+          {/* {error && <h2>Error: {error}</h2>} */}
+        </form>
+        <a href='/SignUp'>Sign Up</a>
+    </>
   );
 };
 
