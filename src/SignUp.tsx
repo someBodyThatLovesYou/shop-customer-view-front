@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { AuthContext, AuthContextType } from "./authContext";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
 const SignUp = () => {
   const [message, setMessage] = useState("");
   const [error, setError] = useState();
+
+  const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
+    React.useContext(AuthContext) as AuthContextType;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -68,11 +72,11 @@ const SignUp = () => {
             required
           />
           <button type="submit">Sign Up</button>
-          {/* {message === "User already exists" && <h1> User already exists</h1>} */}
-          {/* {message === "User registered successfully" && (
-        <h1> User registered successfully !</h1>
-      )} */}
-          {/* {error && <h2>Error: {error}</h2>} */}
+          {message === "User already exists" && <h1> User already exists</h1>}
+          {message === "User registered successfully" && (
+            <h1> User registered successfully !</h1>
+          )}
+          {error && <h2>Error: {error}</h2>}
         </form>
       </div>
     </>

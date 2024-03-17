@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AuthProvider } from "./authContext";
+import { AuthContext, AuthContextType } from "./authContext";
 import Navbar from "./Navbar";
 import BodyMain from "./ShopBody";
 import ProductPage from "./ProductPage";
@@ -10,14 +12,9 @@ import SignUp from "./SignUp";
 import Shopping_Cart from "./cart";
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [customer, setCustomer] = useState({
-    id: "",
-    name: "",
-    email: "",
-    phone: "",
-    registration_date: "",
-  });
+  const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
+    useContext(AuthContext) as AuthContextType;
+  console.log(isAuthenticated);
 
   return (
     <Router>
@@ -55,7 +52,12 @@ const App = () => {
             isAuthenticated ? (
               <>
                 <Navbar />
-                <div>Profile</div>
+                <div className="container">
+                  <div>Profile</div>
+                  <button onClick={() => setIsAuthenticated(false)}>
+                    log out
+                  </button>
+                </div>
               </>
             ) : (
               <>

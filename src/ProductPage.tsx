@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { AuthContext, AuthContextType } from "./authContext";
 import "./ProductPage.css";
 // import thumbnail from "./assets/thumbnail/orange-product.jpg";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
-// interface ProductPageProps {
-//   userName: string;
-//   password: string;
-//   customer_id: int;
-// }
-
-// const ProductPage: React.FC<ProductPageProps> = ({ userName, password }) => {
 const ProductPage = () => {
   const { id } = useParams();
+
+  const { isAuthenticated, customer, setCustomer, setIsAuthenticated } = React.useContext(
+    AuthContext
+  ) as AuthContextType;
+
   // product
   const [product, setProduct] = useState([]);
   const [isProduct, setIsproduct] = useState(false);
@@ -71,7 +70,7 @@ const ProductPage = () => {
       body: JSON.stringify({
         product_id: id,
         quantity: 1,
-        customer_id: customer_id,
+        customer_id: customer.id,
         // updated_at: new Date().toISOString(), // Current timestamp
       }),
     })

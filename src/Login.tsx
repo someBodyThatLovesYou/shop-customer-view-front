@@ -1,8 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext, AuthContextType } from "./authContext";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
-const Login = ({ isAuthenticated, setIsAuthenticated, customer, setCustomer }) => {
+// const Login = ({
+//   isAuthenticated,
+//   setIsAuthenticated,
+//   customer,
+//   setCustomer,
+// }) => {
+
+const Login = () => {
+  const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
+    useContext(AuthContext) as AuthContextType;
+
   const [message, setMessage] = useState("");
   const [error, setError] = useState();
 
@@ -20,7 +31,7 @@ const Login = ({ isAuthenticated, setIsAuthenticated, customer, setCustomer }) =
     console.log("form data sent");
 
     try {
-      const response = await fetch(`${API_BASE_URL}/Lgin`, {
+      const response = await fetch(`${API_BASE_URL}/Login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,9 +45,16 @@ const Login = ({ isAuthenticated, setIsAuthenticated, customer, setCustomer }) =
 
       const RD = await response.json();
       setMessage(RD.message); // Assuming the response has a 'message' field
-      {
-        message === "User exists" && setIsAuthenticated(true);
-      }
+      message === "User exists" && setIsAuthenticated(true);
+      const CustomerData = {
+        id: RD.id, // Assuming this is the ID
+        name: RD.name, // Assuming this is the name
+        email: RD.email, // Assuming this is the email
+        phone: RD.phone, // Assuming this is the phone number
+        registration_date: RD.date, // Assuming this is the registration date
+      };
+      setCustomer(CustomerData);
+      message && console.log(isAuthenticated);
     } catch (error) {
       setError(error.message);
     }
@@ -70,7 +88,8 @@ const Login = ({ isAuthenticated, setIsAuthenticated, customer, setCustomer }) =
           {/* {error && <h2>Error: {error}</h2>} */}
         </form>
         <a href="/SignUp">Sign Up</a>
-        {message === "User exists" && <h2>{isAuthenticated}</h2>}
+        {error && <h2>Error: {error}</h2>}
+        {/* if error was equal to 'network responce was not ok', then in a notife, say 'user or Phone incorrect' */}
       </div>
     </>
   );

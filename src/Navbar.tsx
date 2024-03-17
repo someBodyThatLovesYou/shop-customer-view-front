@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "./navbar.css";
 import Logo from "/icons8-stellarium-logo.svg";
+import { AuthContext, AuthContextType } from "./authContext";
 
-const header = () => {
+const Navbar = () => {
+  const { isAuthenticated, customer } = useContext(
+    AuthContext
+  ) as AuthContextType;
+
+  const userName = isAuthenticated ? customer.name : "";
+
   return (
     <>
       <header className="navHeader rounded container text-dark">
@@ -17,29 +24,17 @@ const header = () => {
           </div>
         </div>
         <div className="navHeader-right-sec d-flex justify-content-center align-items-center">
-          <div className="navHeader-item cart-shopping-item">
-            <a 
-              // href={`/Cart/${userName}`} 
-              href="/Cart" 
-              data-tooltip="cart shopping"  
-            >
+          <div className={ isAuthenticated ? `navHeader-item cart-shopping-item` : `navHeader-item cart-shopping-item d-none`}>
+            <a href={`/Cart/${userName}`} data-tooltip="cart shopping">
               <i className="fa-duotone fa-cart-shopping"></i>
             </a>
           </div>
-          {/* if user loged in, then show this; else remove it completely from dom */}
-          <div className="navHeader-item profile-item">
-            <a 
-              // href={`/Profile/${userName}`} 
-              href="/Profile"
-              data-tooltip="profile page"
-            >
+          <div className={ isAuthenticated ? `navHeader-item profile-item` : `navHeader-item profile-item d-none`}>
+            <a href={`/Profile/${userName}`} data-tooltip="profile page">
               <div className="rounded-circle profile-label">prf</div>
             </a>
           </div>
-          <a 
-            href="/Login" 
-            className="navHeader-item login-signup"
-          >
+          <a href="/Login" className="navHeader-item login-signup">
             Login / SignUp
           </a>
         </div>
@@ -48,4 +43,4 @@ const header = () => {
   );
 };
 
-export default header;
+export default Navbar;

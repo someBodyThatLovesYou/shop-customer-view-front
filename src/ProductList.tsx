@@ -52,7 +52,7 @@ function ProductList() {
           <div className="text-part">
             <h2>{product.name}</h2>
             <h6>{product.description}</h6>
-            <p><strong><center>{product.price}$</center></strong></p>
+            <p><strong>{product.price}$</strong></p>
           </div>
         </a>
       ))}
