@@ -8,6 +8,7 @@ const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 // interface ProductPageProps {
 //   userName: string;
 //   password: string;
+//   customer_id: int;
 // }
 
 // const ProductPage: React.FC<ProductPageProps> = ({ userName, password }) => {
@@ -70,7 +71,7 @@ const ProductPage = () => {
       body: JSON.stringify({
         product_id: id,
         quantity: 1,
-        customer_id: 2,
+        customer_id: customer_id,
         // updated_at: new Date().toISOString(), // Current timestamp
       }),
     })

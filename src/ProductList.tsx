@@ -41,13 +41,12 @@ function ProductList() {
           {ProductError}
         </div>
       )}
+        {/* intire body for each products */}
       {products.map((product) => (
-        // intire body for each products
         <a
           href={`/products/${product.product_id}`}
           className="container bg-light rounded-4 product-div"
           key={product.product_id}
-          onClick={() => handleProductClick(product.product_id)}
         >
           <div className="img-label rounded-4"><img src={`data:image/jpeg;base64,${product.image}`} alt={product.name} className="product-img rounded-5 p-1" /></div>
           <div className="text-part">
