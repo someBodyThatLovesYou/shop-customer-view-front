@@ -1,5 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { AuthContext, AuthContextType } from "./authContext";
 import "./ProductList.css";
+
+
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
@@ -8,6 +11,8 @@ function ProductList() {
   const [ProductLoading, setProductLoading] = useState(true);
   const [ProductError, setProductError] = useState(null);
 
+  const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
+    useContext(AuthContext) as AuthContextType;
 
   useEffect(() => {
     const fetchProduct = async () => {

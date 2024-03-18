@@ -9,9 +9,8 @@ const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 const ProductPage = () => {
   const { id } = useParams();
 
-  const { isAuthenticated, customer, setCustomer, setIsAuthenticated } = React.useContext(
-    AuthContext
-  ) as AuthContextType;
+  const { isAuthenticated, customer, setCustomer, setIsAuthenticated } =
+    React.useContext(AuthContext) as AuthContextType;
 
   // product
   const [product, setProduct] = useState([]);
@@ -141,14 +140,20 @@ const ProductPage = () => {
                   </h5>
                 )}
                 {CN && CN.name && <h3>{CN.name}</h3> } */}
-                  <div className="order_btn">
-                    <button
-                      name="Add_to_cart"
-                      onClick={() => handleAddToCart()}
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
+                  {isAuthenticated ? (
+                    <div className="order_btn">
+                      <button
+                        name="Add_to_cart"
+                        onClick={() => handleAddToCart()}
+                      >
+                        Add to Cart
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="redirect-sign-label">
+                      <a href="/Login">click to sign in or up first</a>
+                    </div>
+                  )}
                 </div>
               </div>
             )}

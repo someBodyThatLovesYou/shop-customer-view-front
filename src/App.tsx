@@ -10,6 +10,7 @@ import FOURoFOUR from "./PageNotFound";
 import Login from "./Login";
 import SignUp from "./SignUp";
 import Shopping_Cart from "./cart";
+import Profile from "./profile";
 
 const App = () => {
   const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
@@ -52,12 +53,7 @@ const App = () => {
             isAuthenticated ? (
               <>
                 <Navbar />
-                <div className="container">
-                  <div>Profile</div>
-                  <button onClick={() => setIsAuthenticated(false)}>
-                    log out
-                  </button>
-                </div>
+                <Profile />
               </>
             ) : (
               <>

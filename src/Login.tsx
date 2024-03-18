@@ -52,6 +52,7 @@ const Login = () => {
         email: RD.email, // Assuming this is the email
         phone: RD.phone, // Assuming this is the phone number
         registration_date: RD.date, // Assuming this is the registration date
+        image: RD.image,
       };
       setCustomer(CustomerData);
       message && console.log(isAuthenticated);

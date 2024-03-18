@@ -1,0 +1,11 @@
+.PP-profile-label {
+    width: 200px;
+    height: 200px;
+    background: pink;
+    /* border-radius: 9999px; */
+}
+.PP-profile-label img {
+    width: 200px;
+    height: 200px;
+    border-radius: 9999px;
+}

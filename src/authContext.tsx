@@ -6,6 +6,7 @@ interface Customer {
  email: string;
  phone: string;
  registration_date: string;
+ image: string,
 }
 
 interface AuthContextType {
@@ -38,6 +39,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
      email: "",
      phone: "",
      registration_date: "",
+     image: "",
    };
  });
 
@@ -58,6 +60,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         email: "",
         phone: "",
         registration_date: "",
+        image: "",
       });
     }
  };
