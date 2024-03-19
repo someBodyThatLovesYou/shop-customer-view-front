@@ -3,18 +3,11 @@
   padding: 0;
 }
 
-.info-section {
-}
-
-.items-section {
-}
-
 .cart-item {
   min-height: 150px;
   margin-bottom: 10px;
   display: flex;
   justify-content: flex-start;
-  /* align-items: center; */
   background-color: whitesmoke;
 }
 .cart-item .right {

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { AuthContext, AuthContextType } from "./authContext";
+import "./SignUp.css";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
@@ -8,8 +9,8 @@ const SignUp = () => {
   const [error, setError] = useState();
   const [file, setFile] = useState(null);
 
-  const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
-    React.useContext(AuthContext) as AuthContextType;
+  // const { customer, setCustomer } =
+  //   React.useContext(AuthContext) as AuthContextType;
 
   const [formData, setFormData] = useState({
     name: "",
@@ -78,48 +79,55 @@ const SignUp = () => {
   };
 
   return (
-    <>
-      <div className="container">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Name"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="email"
-            required
-          />
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="phone number"
-            required
-          />
-          <input
-            type="file"
-            name="image"
-            onChange={handleChange}
-            placeholder="Upload Image"
-          />
-          <button type="submit">Sign Up</button>
-          {message === "User already exists" && <h1> User already exists</h1>}
-          {message === "User registered successfully" && (
-            <h1> User registered successfully !</h1>
-          )}
-          {error && <h2>Error: {error}</h2>}
-        </form>
+    <div className="signUp-intire-page">
+      <div className="container signUp-intire-body bg-red">
+        <div className="signUp-form-body">
+          <form className="SignUp-form" onSubmit={handleSubmit}>
+            <h1>
+              Register{" "}
+              <span className="SignUp-form-regist-prank">its free.</span>
+            </h1>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Name"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              placeholder="email"
+              required
+            />
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              placeholder="phone number"
+              required
+            />
+              <input
+                type="file"
+                name="image"
+                className="form-control"
+                onChange={handleChange}
+                placeholder="Upload Image"
+              />
+            <div className="signUp-form-button-label"><button type="submit">Sign Up</button></div>
+            {message === "User already exists" && <h1> User already exists</h1>}
+            {message === "User registered successfully" && (
+              <h1> User registered successfully !</h1>
+            )}
+            {error && <h2>Error: {error}</h2>}
+          </form>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

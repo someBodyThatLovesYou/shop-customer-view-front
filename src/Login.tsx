@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { AuthContext, AuthContextType } from "./authContext";
-
-const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+import "./Login.css";
+import rightThumbnail from "./assets/thumbnail/login.webp";
 
 const Login = () => {
+  const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
   const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
     useContext(AuthContext) as AuthContextType;
 
@@ -59,37 +60,49 @@ const Login = () => {
   };
 
   return (
-    <>
-      <div className="container">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Name"
-            required
-          />
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            placeholder="phone number"
-            required
-          />
-          <button type="submit">Login</button>
-          {/* {message === "User exists" && <h1> user Exicts</h1>} */}
-          {/* {message === "User does not exist" && (
+    <div className="login-web-page">
+      <div className="container login-intire-page">
+        <div className="login-body bg-light">
+          <div className="login-form-section">
+            <div className="form">
+              <form className="login-form-body" onSubmit={handleSubmit}>
+                <h1 className="login-form-title">Welcome back 👋</h1>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Name"
+                  required
+                />
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="Phone"
+                  required
+                />
+                <button type="submit"><strong>Log In</strong></button>
+                <h6 className="login-form-sign-up"><span className="d-h-a-a">Dont have an account?</span><a href="/SignUp">Sign Up</a></h6>
+              </form>
+            </div>
+          </div>
+          <div className="login-image-section">
+            <div className="login-image-label">
+              <img src={rightThumbnail} alt="thumbnail" />
+            </div>
+          </div>
+        </div>
+
+        {/* {message === "User exists" && <h1> user Exicts</h1>} */}
+        {/* {message === "User does not exist" && (
                 <h1> take ur ass and go for a nauthty sign up !</h1>
               )} */}
-          {/* {error && <h2>Error: {error}</h2>} */}
-        </form>
-        <a href="/SignUp">Sign Up</a>
         {error && <h2>Error: {error}</h2>}
         {/* if error was equal to 'network responce was not ok', then in a notife, say 'user or Phone incorrect' */}
       </div>
-    </>
+    </div>
   );
 };
 

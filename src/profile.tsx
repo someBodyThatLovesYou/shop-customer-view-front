@@ -2,7 +2,7 @@ import React from "react";
 import { AuthContext, AuthContextType } from "./authContext";
 import './Profile.css'
 
-const profile = () => {
+const Profile = () => {
   const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
     React.useContext(AuthContext) as AuthContextType;
 
@@ -19,4 +19,4 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default Profile

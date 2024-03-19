@@ -1,0 +1,71 @@
+.signUp-intire-body {
+  background-image: url("./assets/thumbnail/SignUp.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  height: 650px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signUp-form-body {
+  height: 500px;
+  width: 400px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0px 0 0px -48px rgba(6, 2, 2, 0.1),
+    inset 0px 0px 24px 24px rgba(64, 64, 64, 0.1);
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border-radius: 30px !important; */
+}
+.signUp-form-body .SignUp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.signUp-form-body .SignUp-form input {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  border-radius: 7px;
+  padding: 10px;
+}
+.signUp-form-body .SignUp-form input[type="file"] {
+  padding: 4px;
+  outline: none;
+
+  &::file-selector-button {
+    border-radius: 50px;
+    padding: 0 16px;
+    height: 40px;
+    cursor: pointer;
+    background-color: white;
+    border: none;
+    box-shadow: 0px 1px 0px rgba(#000, 0.05);
+    margin-right: 16px;
+  }
+}
+.signUp-form-body .SignUp-form button {
+  width: 40%;
+  background-color: cornflowerblue;
+  height: 40px;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  margin-top: 10px;
+
+  &:hover {
+    color: white;
+  }
+}
+.signUp-form-body .SignUp-form .SignUp-form-regist-prank {
+  font-size: 13px;
+}
+.signUp-form-body .SignUp-form .signUp-form-button-label {
+  display: flex;
+  justify-content: center;
+}

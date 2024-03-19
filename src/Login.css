@@ -1,0 +1,98 @@
+.login-web-page {
+}
+
+.login-intire-page {
+  padding-inline: 100px;
+}
+
+.login-body {
+  height: 650px;
+  display: flex;
+  background-color: white;
+  filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.3));
+  border-radius: 50px;
+}
+
+.login-image-section .login-image-label {
+  width: 427px;
+  height: 625px;
+}
+.login-image-section img {
+  width: 470px;
+  height: 625px;
+  object-fit: cover;
+  border-radius: 40px;
+}
+
+.login-image-section {
+  border-radius: 0 50px 50px 0;
+  width: 50%;
+  height: 100%;
+  display: grid;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 5%;
+  /* background-color: rebeccapurple; */
+}
+
+.login-form-section {
+  border-radius: 50px 0 0 50px;
+  width: 50%;
+  height: 100%;
+  /* background-color: black; */
+}
+.login-form-section .form {
+  /* background-color: red; */
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-form-section .form .login-form-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+  width: 90%;
+}
+.login-form-section .form .login-form-body input {
+  width: 60%;
+  height: 50px;
+  border-radius: 50px;
+  border: 2px solid silver;
+  margin-bottom: 20px;
+  padding-left: 20px;
+  outline: none;
+  
+  &::placeholder {
+    font-size: 12px;
+  }
+}
+.login-form-section .form .login-form-body button {
+  margin-top: 60px;
+  width: 60%;
+  height: 50px;
+  background-color: orange;
+  border-radius: 50px;
+  border: none;
+  margin-bottom: 10px;
+  font-size: 16px;
+  color: white;
+  &:hover {
+    color: black;
+  }
+}
+.login-form-section .form .login-form-body .login-form-title {
+  margin-bottom: 100px;
+}
+
+.login-form-section .form .login-form-body .login-form-sign-up .d-h-a-a {
+    color: silver;
+    margin-right: 2px;
+}
+.login-form-section .form .login-form-body .login-form-sign-up {
+    margin-top: 14px;
+}
