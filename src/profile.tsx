@@ -1,14 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { AuthContext, AuthContextType } from "./authContext";
 import './Profile.css'
 
 const profile = () => {
   const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
-    useContext(AuthContext) as AuthContextType;
+    React.useContext(AuthContext) as AuthContextType;
 
   return (
     <div className="container">
-      <div>Profile</div>
       <div className="">{customer.name}</div>
       <div className="">{customer.email}</div>
       <div className="">{customer.phone}</div>

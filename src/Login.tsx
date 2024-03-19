@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { AuthContext, AuthContextType } from "./authContext";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
@@ -8,8 +8,7 @@ const Login = () => {
   const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
     useContext(AuthContext) as AuthContextType;
 
-    const navigate = useNavigate(); // Get the navigate function
-
+  const navigate = useNavigate(); // Get the navigate function
 
   const [message, setMessage] = useState("");
   const [error, setError] = useState();
@@ -53,7 +52,7 @@ const Login = () => {
       };
       setCustomer(CustomerData);
       message && console.log(isAuthenticated);
-      message === "User exists" && navigate('/');
+      message === "User exists" && navigate("/");
     } catch (error) {
       setError(error.message);
     }
