@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { AuthContext, AuthContextType } from "./authContext";
 import "./Login.css";
@@ -22,6 +22,12 @@ const Login = () => {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    if (message === "User exists") {
+      navigate("/");
+    }
+  }, [message, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -53,7 +59,6 @@ const Login = () => {
       };
       setCustomer(CustomerData);
       message && console.log(isAuthenticated);
-      message === "User exists" && navigate("/");
     } catch (error) {
       setError(error.message);
     }
@@ -83,8 +88,13 @@ const Login = () => {
                   placeholder="Phone"
                   required
                 />
-                <button type="submit"><strong>Log In</strong></button>
-                <h6 className="login-form-sign-up"><span className="d-h-a-a">Dont have an account?</span><a href="/SignUp">Sign Up</a></h6>
+                <button type="submit">
+                  <strong>Log In</strong>
+                </button>
+                <h6 className="login-form-sign-up">
+                  <span className="d-h-a-a">Dont have an account?</span>
+                  <a href="/SignUp">Sign Up</a>
+                </h6>
               </form>
             </div>
           </div>
@@ -99,8 +109,7 @@ const Login = () => {
         {/* {message === "User does not exist" && (
                 <h1> take ur ass and go for a nauthty sign up !</h1>
               )} */}
-        {error && <h2>Error: {error}</h2>}
-        {/* if error was equal to 'network responce was not ok', then in a notife, say 'user or Phone incorrect' */}
+        {/* {error && <p>Error: {error}</p>} */}
       </div>
     </div>
   );

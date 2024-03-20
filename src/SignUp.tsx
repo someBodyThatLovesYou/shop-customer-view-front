@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { AuthContext, AuthContextType } from "./authContext";
+import React, { useState, useEffect } from "react";
+// import { AuthContext, AuthContextType } from "./authContext";
+import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
@@ -11,6 +12,8 @@ const SignUp = () => {
 
   // const { customer, setCustomer } =
   //   React.useContext(AuthContext) as AuthContextType;
+
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
@@ -26,6 +29,12 @@ const SignUp = () => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
     }
   };
+
+  useEffect(() => {
+    if (message === "User registered successfully") {
+      navigate("/Login");
+    }
+ }, [message, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -111,21 +120,25 @@ const SignUp = () => {
               placeholder="phone number"
               required
             />
-              <input
-                type="file"
-                name="image"
-                className="form-control"
-                onChange={handleChange}
-                placeholder="Upload Image"
-              />
-            <div className="signUp-form-button-label"><button type="submit">Sign Up</button></div>
-            {message === "User already exists" && <h1> User already exists</h1>}
-            {message === "User registered successfully" && (
-              <h1> User registered successfully !</h1>
-            )}
-            {error && <h2>Error: {error}</h2>}
+            <input
+              type="file"
+              name="image"
+              className="form-control"
+              onChange={handleChange}
+              placeholder="Upload Image"
+            />
+            <div className="signUp-form-button-label">
+              <button type="submit">Sign Up</button>
+            </div>
           </form>
         </div>
+        {message === "User already exists" && <h1> User already exists</h1>}
+        {message === "User registered successfully" && (
+          <h1> User registered successfully !</h1>
+        )}
+        {error === "Network response was not ok" && (
+          <h2>Error: User already exist</h2>
+        )}
       </div>
     </div>
   );
