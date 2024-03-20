@@ -8,10 +8,19 @@ const ShoppingCart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [empty, setIsempty] = useState();
+  const [empty, setIsempty] = useState<boolean>();
+
+  // check out info like product_id and cart_id and so on
+  const [COinfo, setCOinfo] = useState([]);
+  const [itemQuantity, setItemQuantity] = useState();
+  const [quantity, setQuantity] = useState<number>();
+  const [totalCost, setTotalCost] = useState<number>();
+  const [COIerror, setCOIerror] = useState(null);
+  const [COIloading, setCOIloading] = useState(true);
 
   const { customer } = useContext(AuthContext) as AuthContextType;
 
+  // fetch Shopping cart items
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
@@ -38,9 +47,36 @@ const ShoppingCart = () => {
     }
   }, [customer.id, API_BASE_URL]);
 
-  const increaseQuantity = async (event, id) => {
+  // fetch billing ALL infos
+  useEffect(() => {
+    const fetch_COI = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/COI/${customer.id}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setCOinfo(data.items);
+        setQuantity(data.quantity); // Set the total quantity to the state
+        setItemQuantity(data.item_count); // Set the item count to the state
+        setTotalCost(data.total_price); // Set the total price to the state
+      } catch (error) {
+        setCOIerror(error.message);
+      } finally {
+        setCOIloading(false);
+      }
+    };
+
+    fetch_COI();
+  }, [customer.id, API_BASE_URL]);
+
+  const increaseQuantity = async (event, id, price) => {
     event.preventDefault();
     event.stopPropagation();
+    
+    setQuantity(quantity + 1)
+    setTotalCost(totalCost + price)
+
 
     // Find the item in the cartItems array
     const itemIndex = cartItems.findIndex((item) => item.cart_id === id);
@@ -58,9 +94,12 @@ const ShoppingCart = () => {
     await updateCartItemQuantity(updatedQuantity, id);
   };
 
-  const decreaseQuantity = async (event, id) => {
+  const decreaseQuantity = async (event, id, price) => {
     event.preventDefault();
     event.stopPropagation();
+
+    setQuantity(quantity - 1)
+    setTotalCost(totalCost - price)
 
     // Find the item in the cartItems array
     const itemIndex = cartItems.findIndex((item) => item.cart_id === id);
@@ -110,75 +149,92 @@ const ShoppingCart = () => {
           <div className="items-section col-7 rounded">
             {cartItems.map((item) => (
               <>
-                {item.quantity !== 0 &&
+                {item.quantity !== 0 && (
                   <a
-                  // key={item.cart_id}
-                  href={`/products/${item.product_id}`}
-                  className="cart-item rounded-4"
-                >
-                  <div className="left ps-3">
-                    <div className="product-img-label rounded">
-                      <img
-                        className="product-img rounded-5"
-                        src={`data:image/jpeg;base64,${item.product_image}`}
-                        alt="product_image"
-                      ></img>
-                    </div>
-                    <div className="name-section ps-4 pt-3">
-                      <h2>
-                        <strong>{item.product_name}</strong>
-                      </h2>
-                    </div>
-                  </div>
-                  <div className="right">
-                    <div className="price-section">
-                      <h5>
-                        <strong></strong>
-                        {item.product_price} $
-                      </h5>
-                    </div>
-                    <div className="quantity-section">
-                      <div className="middle-section">
-                        <strong>{item.quantity}</strong>
+                    // key={item.cart_id}
+                    href={`/products/${item.product_id}`}
+                    className="cart-item rounded-4"
+                  >
+                    <div className="left ps-3">
+                      <div className="product-img-label rounded">
+                        <img
+                          className="product-img rounded-5"
+                          src={`data:image/jpeg;base64,${item.product_image}`}
+                          alt="product_image"
+                        ></img>
                       </div>
-                      <div className="body">
-                        <div className="increase-label">
-                          <button
-                            onClick={(event) =>
-                              increaseQuantity(event, item.cart_id)
-                            }
-                            className="increase"
-                          >
-                            <i className="fa-sharp fa-solid fa-plus"></i>
-                          </button>
-                        </div>
-                        <div className="decrease-label">
-                          <button
-                            onClick={(event) =>
-                              decreaseQuantity(event, item.cart_id)
-                            }
-                            disabled={item.quantity === 0}
-                            className="decrease"
-                          >
-                            <i className="fa-sharp fa-solid fa-minus"></i>
-                          </button>
-                        </div>
+                      <div className="name-section ps-4 pt-3">
+                        <h2>
+                          <strong>{item.product_name}</strong>
+                        </h2>
                       </div>
                     </div>
-                  </div>
-                </a>
-                }
+                    <div className="right">
+                      <div className="price-section">
+                        <h5>
+                          <strong></strong>
+                          {item.product_price} $
+                        </h5>
+                      </div>
+                      <div className="quantity-section">
+                        <div className="middle-section">
+                          <strong>{item.quantity}</strong>
+                        </div>
+                        <div className="body">
+                          <div className="increase-label">
+                            <button
+                              onClick={(event) =>
+                                increaseQuantity(event, item.cart_id, item.product_price)
+                              }
+                              className="increase"
+                            >
+                              <i className="fa-sharp fa-solid fa-plus"></i>
+                            </button>
+                          </div>
+                          <div className="decrease-label">
+                            <button
+                              onClick={(event) =>
+                                decreaseQuantity(event, item.cart_id, item.product_price)
+                              }
+                              disabled={item.quantity === 0}
+                              className="decrease"
+                            >
+                              <i className="fa-sharp fa-solid fa-minus"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                )}
               </>
             ))}
           </div>
           {!empty && (
             <>
-              <div className="info-section col-4 bg-danger rounded-5">right</div>
+              <div className="info-section col-4 rounded-5">
+                <div className="infos bg-light">
+                  {COIerror && (
+                    <p>
+                      <span>{COIerror}</span>
+                    </p>
+                  )}
+                  {COIloading && (
+                    <p>
+                      <span>Loading ..</span>
+                    </p>
+                  )}
+                  <p>
+                    <strong>total quantity: {quantity}</strong>
+                  </p>
+                  <p>
+                    <strong>total cost: {totalCost}</strong>
+                  </p>
+                </div>
+              </div>
             </>
           )}
         </div>
-            {/* should display in modal !! */}
-        
       </div>
     </>
   );
