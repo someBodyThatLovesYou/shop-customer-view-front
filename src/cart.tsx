@@ -8,7 +8,7 @@ const ShoppingCart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [empty, setIsempty] = useState(true);
+  const [empty, setIsempty] = useState();
 
   const { customer } = useContext(AuthContext) as AuthContextType;
 
@@ -105,6 +105,8 @@ const ShoppingCart = () => {
       <div className="container">
         <div className="row gap-5 mt-5">
           {empty && <h1>EMPTY</h1>}
+          {loading && <div>Loading...</div>}
+          {error && <div>Error: {error}</div>}
           <div className="items-section col-7 rounded">
             {cartItems.map((item) => (
               <>
@@ -175,9 +177,8 @@ const ShoppingCart = () => {
             </>
           )}
         </div>
-
-        {loading && <div>Loading...</div>}
-        {error && <div>Error: {error}</div>}
+            {/* should display in modal !! */}
+        
       </div>
     </>
   );

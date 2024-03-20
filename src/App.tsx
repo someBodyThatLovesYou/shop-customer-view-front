@@ -11,6 +11,7 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import Shopping_Cart from "./cart";
 import Profile from "./profile";
+import SubCategory from './SubCategory'
 
 const App = () => {
   const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
@@ -94,6 +95,15 @@ const App = () => {
             <>
               <Navbar />
               <SignUp />
+            </>
+          }
+        />
+        <Route
+          path="/subCategory/:id"
+          element={
+            <>
+              <Navbar />
+              <SubCategory />
             </>
           }
         />
