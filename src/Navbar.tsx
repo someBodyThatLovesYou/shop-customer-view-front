@@ -20,7 +20,7 @@ const Navbar = () => {
         </div>
         <div className="navHeader-item search-item">
           <div className="search-bar">
-            <input type="search" placeholder="Search In Products .." />
+            <a href={`/Search`}>Search In Products ..</a>
           </div>
         </div>
         <div className="navHeader-right-sec d-flex justify-content-center align-items-center">

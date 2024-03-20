@@ -73,10 +73,9 @@ const ShoppingCart = () => {
   const increaseQuantity = async (event, id, price) => {
     event.preventDefault();
     event.stopPropagation();
-    
-    setQuantity(quantity + 1)
-    setTotalCost(totalCost + price)
 
+    setQuantity(quantity + 1);
+    setTotalCost(totalCost + price);
 
     // Find the item in the cartItems array
     const itemIndex = cartItems.findIndex((item) => item.cart_id === id);
@@ -98,8 +97,8 @@ const ShoppingCart = () => {
     event.preventDefault();
     event.stopPropagation();
 
-    setQuantity(quantity - 1)
-    setTotalCost(totalCost - price)
+    setQuantity(quantity - 1);
+    setTotalCost(totalCost - price);
 
     // Find the item in the cartItems array
     const itemIndex = cartItems.findIndex((item) => item.cart_id === id);
@@ -184,7 +183,11 @@ const ShoppingCart = () => {
                           <div className="increase-label">
                             <button
                               onClick={(event) =>
-                                increaseQuantity(event, item.cart_id, item.product_price)
+                                increaseQuantity(
+                                  event,
+                                  item.cart_id,
+                                  item.product_price
+                                )
                               }
                               className="increase"
                             >
@@ -194,7 +197,11 @@ const ShoppingCart = () => {
                           <div className="decrease-label">
                             <button
                               onClick={(event) =>
-                                decreaseQuantity(event, item.cart_id, item.product_price)
+                                decreaseQuantity(
+                                  event,
+                                  item.cart_id,
+                                  item.product_price
+                                )
                               }
                               disabled={item.quantity === 0}
                               className="decrease"
@@ -213,7 +220,7 @@ const ShoppingCart = () => {
           {!empty && (
             <>
               <div className="info-section col-4 rounded-5">
-                <div className="infos bg-light">
+                <div className="infos">
                   {COIerror && (
                     <p>
                       <span>{COIerror}</span>
@@ -224,12 +231,31 @@ const ShoppingCart = () => {
                       <span>Loading ..</span>
                     </p>
                   )}
-                  <p>
-                    <strong>total quantity: {quantity}</strong>
-                  </p>
-                  <p>
-                    <strong>total cost: {totalCost}</strong>
-                  </p>
+                  {!COIloading && (
+                    <>
+                      <div className="cart-billig-icon">
+                        <i className="fa-duotone fa-file-invoice-dollar"></i>
+                      </div>
+                      <p className="info-title-label">
+                        <span className="info-title">Total quantity</span>{" "}
+                        <span className="info-content">{quantity}</span>
+                      </p>
+                      <p className="info-title-label">
+                        <span className="info-title">Total cost</span>{" "}
+                        <span className="info-content">{totalCost}$</span>
+                      </p>
+                      <div className="chack-out-button-label">
+                        <a
+                          // its for cart_id
+                          // href={`CheckOut/${COinfo[0].cart_id}`}
+                          href={`CheckOut/${customer.id}`}
+                          className="chack-out-button"
+                        >
+                          Check out
+                        </a>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
             </>

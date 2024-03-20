@@ -11,7 +11,7 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import Shopping_Cart from "./cart";
 import Profile from "./profile";
-import SubCategory from './SubCategory'
+import SubCategory from "./SubCategory";
 
 const App = () => {
   const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
