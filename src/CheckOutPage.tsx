@@ -1,7 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import { AuthContext, AuthContextType } from "./authContext";
-import "./CheckOutPage.css";
 import CreditCard from "./assets/thumbnail/credit-card.png";
+import "./CheckOutPage.css";
+import "./Invoice.css";
 
 const CheckOutPage = () => {
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
@@ -36,10 +37,44 @@ const CheckOutPage = () => {
     status: "pending",
   });
 
+  const [orderId, setOrderId] = useState();
+
   // check out page
   const [isCOPage, setCheckOutPage] = useState(false);
   const [COMessage, setCOMessage] = useState("");
   const [COError, setCOError] = useState();
+  // const COhandleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   console.log("data sent");
+
+  //   try {
+  //     const response = await fetch(`${API_BASE_URL}/COOSF`, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(BformData),
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+
+  //     const data = await response.json();
+  //     setCOMessage(data.message);
+  //     setOrderId(data.order_id);
+  //     fetch_COI();
+  //   } catch (error) {
+  //     setCOError(error.message);
+  //   }
+
+  //   if (isAllPaymentFilled()) {
+  //     setSPage(true);
+  //     setCheckOutPage(false);
+  //     // console.log(orderId);
+  //   }
+  // };
+
   const COhandleSubmit = async (e) => {
     e.preventDefault();
     console.log("data sent");
@@ -59,8 +94,19 @@ const CheckOutPage = () => {
 
       const data = await response.json();
       setCOMessage(data.message);
+      // Directly use data.order_id instead of relying on state update
+      const orderIdFromResponse = data.order_id;
+      setOrderId(orderIdFromResponse);
+      // Pass orderIdFromResponse to fetch_COI
+      fetch_COI(orderIdFromResponse);
     } catch (error) {
       setCOError(error.message);
+    }
+
+    if (isAllPaymentFilled()) {
+      setSPage(true);
+      setCheckOutPage(false);
+      // console.log(orderId);
     }
   };
 
@@ -68,11 +114,29 @@ const CheckOutPage = () => {
   const [isSPage, setSPage] = useState(false);
   const [showingMessage, setShowingMessage] = useState("");
   const [SError, setSError] = useState();
+  const [SInfo, setSInfo] = useState([]);
+  const [totalCost, setTotalCost] = useState();
+  const [invoiceDate, setInvoiceDate] = useState();
 
   // Rating and comment page
-  // const [isRCPage, setRCPage] = useState(false);
-  // const [RCMessage, setRCMessage] = useState("");
-  // const [RCError, setRCError] = useState();
+  const [isRCPage, setRCPage] = useState(false);
+  const [RCMessage, setRCMessage] = useState("");
+  const [RCError, setRCError] = useState();
+
+  const fetch_COI = async (orderId) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/Invoice/${orderId}`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      const invoiceData = data[0];
+      setTotalCost(invoiceData.total_amount);
+      setInvoiceDate(invoiceData.date);
+    } catch (error) {
+      setSError(error.message);
+    }
+  };
 
   const [cardNumber, setCardNumber] = useState("");
   const CardNumberHandleChageCombined = (e) => {
@@ -139,10 +203,15 @@ const CheckOutPage = () => {
         }
       };
       setBPage(false);
-      setSPage(true);
+      setRCPage(true);
 
       sendInLocationMethod();
     }
+  };
+
+  const handleInvoiceNexeClick = () => {
+    setSPage(false);
+    setRCPage(true);
   };
 
   return (
@@ -335,10 +404,72 @@ const CheckOutPage = () => {
         )}
         {!SError && (
           <>
-            {isSPage && (
+            {isSPage && isOnline && (
               <>
-                <div className="Showing-form-label">
-                  kjafsdj
+                <div className="Showing-section-label">
+                  <div className="Showing-section">
+                    <div className="top rounded-5">
+                      <div className="body">
+                        <div className="icon">
+                          <div className="back-tick">
+                            <div className="tick">
+                              <i className="fa-sharp fa-solid fa-check"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="content">
+                          <p>Payment Success!</p>
+                          <h1>
+                            <span>$ {totalCost}</span>
+                          </h1>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="middle rounded-5">
+                      <div className="body">
+                        <div className="up">
+                          <div className="">
+                            <h4>Payment Details</h4>
+                          </div>
+                        </div>
+                        <div className="middle-content-section">
+                          <div className="its-rowing">
+                            <span>Order Number</span>
+                            <div>{orderId}</div>
+                          </div>
+                          <div className="its-rowing">
+                            <span>Payment Status</span>
+                            <div>
+                              <span className="success-detail-background">
+                                <i className="fa-sharp fa-solid fa-check"></i>
+                              </span>{" "}
+                              Success
+                            </div>
+                          </div>
+                          <div className="its-rowing">
+                            <span>Payment Time</span>
+                            <div>{invoiceDate}</div>
+                          </div>
+                          <div className="total-pay-bottom">
+                            <span>Total Payment</span>
+                            <h4>$ {totalCost}</h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="bottom rounded-5">
+                      <div className="content">
+                        <button
+                          onClick={handleInvoiceNexeClick}
+                          className="rounded-5"
+                        >
+                          <i className="fa-sharp fa-light fa-caret-right"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </>
             )}
@@ -347,7 +478,7 @@ const CheckOutPage = () => {
       </div>
 
       {/* rating and comment page */}
-      {/* <div className="costainer RC-page">
+      <div className="costainer RC-page">
         {RCError && (
           <div>
             <p>
@@ -356,7 +487,20 @@ const CheckOutPage = () => {
             </p>
           </div>
         )}
-      </div> */}
+        {!RCError && (
+          <>
+            {isRCPage && (
+              <>
+                <div className="RateAndComment-form-label">
+                  <form className="RateAndComment-form">
+                    Rate and Comment page
+                  </form>
+                </div>
+              </>
+            )}
+          </>
+        )}
+      </div>
     </>
   );
 };
