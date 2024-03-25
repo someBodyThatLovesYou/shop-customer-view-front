@@ -1,0 +1,207 @@
+.billing-form-label {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.method-check-box .title-method {
+  font-size: 20px;
+  width: 100%;
+  font-weight: 500;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+.method-check-box span {
+  margin-left: 5px;
+}
+
+.billing-form {
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  width: 600px;
+  padding: 20px;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.billing-form .header {
+  display: flex;
+  width: 80%;
+  justify-content: flex-start;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.form-items:not(.method-check-box) {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-items input {
+  width: 80%;
+  padding: 10px;
+  outline: none;
+  border-radius: 4px;
+  border: 2px solid silver;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+.form-items div {
+  width: 80%;
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 4px;
+}
+
+.form-items div span {
+  margin-left: 5px;
+}
+
+.next-stage-button-label {
+  /* padding-right: 30px; */
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.next-stage-button {
+  outline: none;
+  border-radius: 9px;
+  width: 160px;
+  height: 60px;
+  font-size: 20px;
+  color: whitesmoke;
+  background-color: rgb(92, 126, 227);
+  border: 2px solid transparent;
+  transition: all ease 200ms;
+}
+
+.next-stage-button-label:hover .next-stage-button {
+  font-size: 25px;
+}
+
+.next-stage-button-label button:active {
+  font-size: 20px;
+}
+
+.CheckOut-form-label {
+  width: 100%;
+  height: 660px;
+  display: flex;
+  justify-content: center;
+  background-color: whitesmoke;
+  border-radius: 20px;
+}
+
+.CheckOut-form-label .left {
+  width: 30%;
+  height: 100%;
+}
+
+.CheckOut-form-label .left img {
+  width: 100%;
+  height: 40%;
+}
+
+.CheckOut-form-label .right {
+  /* background-color: blue; */
+  width: 70%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.CheckOut-form {
+  width: 70%;
+  background-color: #35374b;
+  border-radius: 20px;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.CheckOut-form .title {
+  display: flex;
+  justify-content: flex-end;
+  color: white;
+  font-size: 50px;
+  padding-top: 10px;
+  padding-right: 30px;
+}
+
+.CheckOut-form .Card-number {
+  margin-top: 80px;
+  outline: none;
+  width: 100%;
+  height: 15%;
+  display: flex;
+  justify-content: center;
+}
+
+.CheckOut-form .Card-number input {
+  font-size: 40px;
+  outline: none;
+  width: 80%;
+  text-align: center;
+  background-color: transparent;
+  color: white;
+  /* background-color: black; */
+  border: none;
+  font-family: "Graduate", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.CheckOut-form .Card-number input::placeholder {
+  text-align: center;
+  opacity: 40%;
+}
+
+.CheckOut-form .CVV {
+  /* background-color: white; */
+  margin-top: 40px;
+  padding-left: 60px;
+}
+
+.CheckOut-form .CVV-text {
+  font-size: 30px;
+  letter-spacing: 3px;
+  font-family: "Graduate", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.CheckOut-form .CVV input {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 40px;
+  width: 20%;
+  height: 100%;
+  font-family: "Graduate", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.CheckOut-form .CVV input::placeholder {
+  opacity: 40%;
+}

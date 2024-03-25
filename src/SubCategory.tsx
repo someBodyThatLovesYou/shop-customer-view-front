@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useContext} from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext, AuthContextType } from "./authContext";
+import './SubCategory.css'
 
 const SubCategory = () => {
     const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL

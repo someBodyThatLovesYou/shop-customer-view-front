@@ -44,7 +44,7 @@ const ProductPage = () => {
     // const fetchCN = async () => {
     //   try {
     //     const response = await fetch(
-    //       `${API_BASE_URL}/category/${product.category_id}`
+    //       `${API_BASE_URL}/ALLcategory/${product.category_id}`
     //     );
     //     if (!response.ok) {
     //       throw new Error("Network response was not ok");

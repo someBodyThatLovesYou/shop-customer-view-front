@@ -5,8 +5,6 @@
 .sec-top {
   width: 100%;
   height: 700px;
-  /* background: blue; */
-  /* display: grid; */
   position: relative;
 }
 
@@ -72,8 +70,6 @@
   color: gray !important;
 }
 
-.image-prc-sec {
-}
 .image-prc-sec .img-label img {
   object-fit: cover;
 }
@@ -89,7 +85,8 @@
   align-items: center;
 }
 
-.order_btn button, .redirect-sign-label a {
+.order_btn button,
+.redirect-sign-label a {
   outline: none;
   border: none;
   border-radius: 20px;
@@ -97,4 +94,14 @@
   padding: 20px;
   padding-inline: 50px;
   background: black;
+  font-size: 16px;
+  transition: all ease 200ms;
+}
+.order_btn button:hover,
+.redirect-sign-label a:hover {
+  font-size: 15px;
+}
+.order_btn button:active,
+.redirect-sign-label a:active {
+  font-size: 17px;
 }

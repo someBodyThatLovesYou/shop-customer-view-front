@@ -1,0 +1,17 @@
+/* .category-sub-text-part {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 50%;
+  flex: 1;
+
+  & p {
+    overflow-wrap: break-word;
+    opacity: 0.3;
+  }
+}
+
+.category-sub-text-part h2 {
+  text-wrap: stable;
+  max-width: 10%;
+} */

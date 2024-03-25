@@ -143,10 +143,10 @@ const ShoppingCart = () => {
       <div className="container">
         <div className="row gap-5 mt-5">
           {empty && <h1>EMPTY</h1>}
-          {loading && <div>Loading...</div>}
-          {error && <div>Error: {error}</div>}
           <div className="items-section col-7 rounded">
-            {cartItems.map((item) => (
+            {loading && <div>Loading...</div>}
+            {error && <div>Error: {error}</div>}
+            {!error && !loading && cartItems.map((item) => (
               <>
                 {item.quantity !== 0 && (
                   <a
@@ -231,7 +231,7 @@ const ShoppingCart = () => {
                       <span>Loading ..</span>
                     </p>
                   )}
-                  {!COIloading && (
+                  {!COIloading && !COIerror && (
                     <>
                       <div className="cart-billig-icon">
                         <i className="fa-duotone fa-file-invoice-dollar"></i>
@@ -246,9 +246,7 @@ const ShoppingCart = () => {
                       </p>
                       <div className="chack-out-button-label">
                         <a
-                          // its for cart_id
-                          // href={`CheckOut/${COinfo[0].cart_id}`}
-                          href={`CheckOut/${customer.id}`}
+                          href={`CheckOut`}
                           className="chack-out-button"
                         >
                           Check out

@@ -13,7 +13,7 @@ const CategoryPage = () => {
   useEffect(() => {
     const fetchCategory = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/category/${id}`);
+        const response = await fetch(`${API_BASE_URL}/ALLcategory/${id}`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -41,10 +41,10 @@ const CategoryPage = () => {
                 <img src={`data:image/png;base64,${column.image}`} alt="" />
               </div>
               <div className="text-section">
-                <h1>
+                <p>
                   <strong>{column.name}</strong>
-                </h1>
-                <p>{column.description}</p>
+                </p>
+                <span>{column.description}</span>
               </div>
             </a>
           ))}

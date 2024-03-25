@@ -81,6 +81,7 @@
   & .chack-out-button-label {
     display: flex;
     justify-content: center;
+    transition: all ease 200ms;
 
     & .chack-out-button {
       background-color: black;
@@ -130,4 +131,13 @@
 .info-title-label::-webkit-scrollbar-thumb {
   display: none;
   background-color: red;
+}
+
+.chack-out-button-label a:hover {
+  font-size: 19px;
+  transition: all ease 200ms;
+}
+.chack-out-button-label a:active {
+  font-size: 18px;
+  transition: all ease 200ms;
 }

@@ -12,6 +12,7 @@ import SignUp from "./SignUp";
 import Shopping_Cart from "./cart";
 import Profile from "./profile";
 import SubCategory from "./SubCategory";
+import CheckOutPage from "./CheckOutPage";
 
 const App = () => {
   const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
@@ -105,6 +106,22 @@ const App = () => {
               <Navbar />
               <SubCategory />
             </>
+          }
+        />
+        <Route
+          path="/Cart/CheckOut"
+          element={
+            isAuthenticated ? (
+              <>
+                <Navbar />
+                <CheckOutPage />
+              </>
+            ) : (
+              <>
+                <Navbar />
+                <Login />
+              </>
+            )
           }
         />
         <Route path="*" element={<FOURoFOUR />} />

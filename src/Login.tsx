@@ -24,10 +24,10 @@ const Login = () => {
   };
 
   useEffect(() => {
-    if (message === "User exists") {
+    if (message === "User exists" && isAuthenticated) {
       navigate("/");
     }
-  }, [message, navigate]);
+  }, [message, navigate, isAuthenticated]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
