@@ -13,10 +13,10 @@ import Shopping_Cart from "./cart";
 import Profile from "./profile";
 import SubCategory from "./SubCategory";
 import CheckOutPage from "./CheckOutPage";
+import SearchPage from "./Search";
 
 const App = () => {
-  const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
-    useContext(AuthContext) as AuthContextType;
+  const { isAuthenticated } = useContext(AuthContext) as AuthContextType;
   console.log(isAuthenticated);
 
   return (
@@ -96,6 +96,15 @@ const App = () => {
             <>
               <Navbar />
               <SignUp />
+            </>
+          }
+        />
+        <Route
+          path="/Search"
+          element={
+            <>
+              <Navbar />
+              <SearchPage />
             </>
           }
         />

@@ -2,8 +2,6 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext, AuthContextType } from "./authContext";
 import "./ProductList.css";
 
-
-
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
 function ProductList() {
@@ -46,18 +44,26 @@ function ProductList() {
           {ProductError}
         </div>
       )}
-        {/* intire body for each products */}
+      {/* intire body for each products */}
       {products.map((product) => (
         <a
           href={`/products/${product.product_id}`}
           className="container bg-light rounded-4 product-div"
           key={product.product_id}
         >
-          <div className="img-label rounded-4"><img src={`data:image/jpeg;base64,${product.image}`} alt={product.name} className="product-img rounded-5 p-1" /></div>
+          <div className="img-label rounded-4">
+            <img
+              src={`data:image/jpeg;base64,${product.image}`}
+              alt={product.name}
+              className="product-img rounded-5 p-1"
+            />
+          </div>
           <div className="text-part">
             <h2>{product.name}</h2>
             <h6>{product.description}</h6>
-            <p><strong>{product.price}$</strong></p>
+            <p>
+              <strong>{product.price}$</strong>
+            </p>
           </div>
         </a>
       ))}

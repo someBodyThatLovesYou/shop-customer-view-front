@@ -23,16 +23,7 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  useEffect(() => {
-    if (message === "User exists" && isAuthenticated) {
-      navigate("/");
-    }
-  }, [message, navigate, isAuthenticated]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log("form data sent");
-
+  const handleSubmit = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/Login`, {
         method: "POST",
@@ -47,8 +38,10 @@ const Login = () => {
       }
 
       const RD = await response.json();
-      setMessage(RD.message); // Assuming the response has a 'message' field
-      message === "User exists" && setIsAuthenticated(true);
+      setMessage(RD.message);
+      if (RD.message === "User exists") {
+        setIsAuthenticated(true);
+      }
       const CustomerData = {
         id: RD.id, // Assuming this is the ID
         name: RD.name, // Assuming this is the name
@@ -58,10 +51,17 @@ const Login = () => {
         image: RD.image,
       };
       setCustomer(CustomerData);
-      message && console.log(isAuthenticated);
+      navigate("/");
     } catch (error) {
       setError(error.message);
     }
+  };
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log("form data sent");
+
+    handleSubmit();
   };
 
   return (
@@ -70,7 +70,7 @@ const Login = () => {
         <div className="login-body bg-light">
           <div className="login-form-section">
             <div className="form">
-              <form className="login-form-body" onSubmit={handleSubmit}>
+              <form className="login-form-body" onSubmit={handleLogin}>
                 <h1 className="login-form-title">Welcome back 👋</h1>
                 <input
                   type="text"
