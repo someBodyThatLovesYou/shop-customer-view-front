@@ -205,3 +205,27 @@ input[type="number"]::-webkit-inner-spin-button {
 .CheckOut-form .CVV input::placeholder {
   opacity: 40%;
 }
+
+.button-COsubmit {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button-COsubmit button {
+  color: rgb(92, 126, 227);
+  border: none;
+  outline: none;
+  font-size: 60px;
+  background-color: transparent;
+  margin-right: 20px;
+  transition: all ease-in-out 150ms;
+}
+
+.button-COsubmit button:hover {
+  font-size: 48px;
+}
+
+.button-COsubmit button:active {
+  font-size: 50px;
+}

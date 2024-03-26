@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import { AuthContext, AuthContextType } from "./authContext";
 import "./Login.css";
 import rightThumbnail from "./assets/thumbnail/login.webp";

@@ -5,14 +5,16 @@ import "./CheckOutPage.css";
 import "./Invoice.css";
 import "./RC.css";
 import Rating from "./Rating"; // Import the Rating component
+import { useNavigate } from "react-router-dom";
 
 const CheckOutPage = () => {
+  const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
   const { customer } = useContext(AuthContext) as AuthContextType;
   const [isOnline, setIsOnline] = useState(true);
 
   // billing page
-  const [isBPage, setBPage] = useState(false);
+  const [isBPage, setBPage] = useState(true);
   const BhandleChange = (e) => {
     setBFormData({ ...BformData, [e.target.name]: e.target.value });
   };
@@ -90,7 +92,7 @@ const CheckOutPage = () => {
   const [invoiceDate, setInvoiceDate] = useState();
 
   // Rating and comment page
-  const [isRCPage, setRCPage] = useState(true);
+  const [isRCPage, setRCPage] = useState(false);
   const [RCMessage, setRCMessage] = useState("");
   const [RCError, setRCError] = useState();
   const [CRformData, setCRformData] = useState({
@@ -197,9 +199,7 @@ const CheckOutPage = () => {
     setRCPage(true);
   };
 
-  const handleRaCSubmit = async () => {
-    console.log("data sent");
-
+  const sendRaCinfo = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/RaC`, {
         method: "POST",
@@ -225,6 +225,11 @@ const CheckOutPage = () => {
 
   const RCdisableHandle = () => {
     return CRformData.rate !== 0 && CRformData.comment;
+  };
+
+  const handleRCsubmit = () => {
+    sendRaCinfo();
+    navigate(`/Cart/${customer.name}`);
   };
 
   return (
@@ -286,7 +291,7 @@ const CheckOutPage = () => {
                     />
                   </div>
                   <div className="form-items">
-                    <div>Address line 1</div>
+                    <div>First address</div>
                     <input
                       type="text"
                       name="addressLineOne"
@@ -299,7 +304,7 @@ const CheckOutPage = () => {
                   </div>
                   <div className="form-items">
                     <div>
-                      Address line 2 <span>(optional)</span>
+                      Second address <span>(optional)</span>
                     </div>
                     <input
                       type="text"
@@ -389,12 +394,14 @@ const CheckOutPage = () => {
                               value={CVVCard}
                             />
                           </div>
-                          <button
-                            type="submit"
-                            disabled={!isAllPaymentFilled()}
-                          >
-                            go
-                          </button>
+                          <div className="button-COsubmit">
+                            <button
+                              type="submit"
+                              disabled={!isAllPaymentFilled()}
+                            >
+                              <i className="fa-solid fa-caret-right"></i>
+                            </button>
+                          </div>
                         </form>
                       </div>
                     </div>
@@ -505,10 +512,7 @@ const CheckOutPage = () => {
             {isRCPage && (
               <>
                 <div className="RateAndComment-form-label">
-                  <form
-                    className="RateAndComment-form"
-                    onSubmit={handleRaCSubmit}
-                  >
+                  <form className="RateAndComment-form">
                     <div className="RC-form-item comment-section">
                       <textarea
                         name="comment"
@@ -528,6 +532,7 @@ const CheckOutPage = () => {
                     <div className="label-buttons">
                       <a href={`/Cart/${customer.name}`}>NO</a>
                       <button
+                        onClick={handleRCsubmit}
                         disabled={!RCdisableHandle()}
                         className="button-RC-form-subm"
                         type="submit"
