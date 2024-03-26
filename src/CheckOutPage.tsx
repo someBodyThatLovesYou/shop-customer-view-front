@@ -3,14 +3,16 @@ import { AuthContext, AuthContextType } from "./authContext";
 import CreditCard from "./assets/thumbnail/credit-card.png";
 import "./CheckOutPage.css";
 import "./Invoice.css";
+import "./RC.css";
+import Rating from "./Rating"; // Import the Rating component
 
 const CheckOutPage = () => {
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
   const { customer } = useContext(AuthContext) as AuthContextType;
+  const [isOnline, setIsOnline] = useState(true);
 
   // billing page
-  const [isBPage, setBPage] = useState(true);
-  const [isOnline, setIsOnline] = useState(true);
+  const [isBPage, setBPage] = useState(false);
   const BhandleChange = (e) => {
     setBFormData({ ...BformData, [e.target.name]: e.target.value });
   };
@@ -43,37 +45,6 @@ const CheckOutPage = () => {
   const [isCOPage, setCheckOutPage] = useState(false);
   const [COMessage, setCOMessage] = useState("");
   const [COError, setCOError] = useState();
-  // const COhandleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   console.log("data sent");
-
-  //   try {
-  //     const response = await fetch(`${API_BASE_URL}/COOSF`, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify(BformData),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error("Network response was not ok");
-  //     }
-
-  //     const data = await response.json();
-  //     setCOMessage(data.message);
-  //     setOrderId(data.order_id);
-  //     fetch_COI();
-  //   } catch (error) {
-  //     setCOError(error.message);
-  //   }
-
-  //   if (isAllPaymentFilled()) {
-  //     setSPage(true);
-  //     setCheckOutPage(false);
-  //     // console.log(orderId);
-  //   }
-  // };
 
   const COhandleSubmit = async (e) => {
     e.preventDefault();
@@ -119,9 +90,21 @@ const CheckOutPage = () => {
   const [invoiceDate, setInvoiceDate] = useState();
 
   // Rating and comment page
-  const [isRCPage, setRCPage] = useState(false);
+  const [isRCPage, setRCPage] = useState(true);
   const [RCMessage, setRCMessage] = useState("");
   const [RCError, setRCError] = useState();
+  const [CRformData, setCRformData] = useState({
+    customerId: customer.id,
+    rate: 0,
+    comment: "",
+  });
+
+  const handleCRchange = (e) => {
+    const { name, value } = e.target;
+    setCRformData({ ...CRformData, [name]: value });
+
+    // setCRformData({ ...CRformData, [e.target.name]: e.target.value });
+  };
 
   const fetch_COI = async (orderId) => {
     try {
@@ -212,6 +195,36 @@ const CheckOutPage = () => {
   const handleInvoiceNexeClick = () => {
     setSPage(false);
     setRCPage(true);
+  };
+
+  const handleRaCSubmit = async () => {
+    console.log("data sent");
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/RaC`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(CRformData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      const data = await response.json();
+      setRCMessage(data.message);
+      if (RCMessage === "success") {
+        console.log("SUCCESS");
+      }
+    } catch (error) {
+      setRCError(error.message);
+    }
+  };
+
+  const RCdisableHandle = () => {
+    return CRformData.rate !== 0 && CRformData.comment;
   };
 
   return (
@@ -492,8 +505,36 @@ const CheckOutPage = () => {
             {isRCPage && (
               <>
                 <div className="RateAndComment-form-label">
-                  <form className="RateAndComment-form">
-                    Rate and Comment page
+                  <form
+                    className="RateAndComment-form"
+                    onSubmit={handleRaCSubmit}
+                  >
+                    <div className="RC-form-item comment-section">
+                      <textarea
+                        name="comment"
+                        onChange={handleCRchange}
+                        value={CRformData.comment}
+                        placeholder="comment .."
+                      />
+                    </div>
+
+                    <Rating
+                      value={CRformData.rate}
+                      onChange={(newRating) =>
+                        setCRformData({ ...CRformData, rate: newRating })
+                      }
+                    />
+
+                    <div className="label-buttons">
+                      <a href={`/Cart/${customer.name}`}>NO</a>
+                      <button
+                        disabled={!RCdisableHandle()}
+                        className="button-RC-form-subm"
+                        type="submit"
+                      >
+                        Submit
+                      </button>
+                    </div>
                   </form>
                 </div>
               </>

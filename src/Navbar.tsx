@@ -25,7 +25,7 @@ const Navbar = () => {
         </div>
         <div className="navHeader-right-sec d-flex justify-content-center align-items-center">
           <div className={ isAuthenticated ? `navHeader-item cart-shopping-item` : `navHeader-item cart-shopping-item d-none`}>
-            <a href={`/Cart/${userName}`} data-tooltip="cart shopping">
+            <a href={`/Cart/${userName}`} data-tooltip="shopping cart">
               <i className="fa-duotone fa-cart-shopping"></i>
             </a>
           </div>

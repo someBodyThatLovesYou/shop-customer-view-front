@@ -1,0 +1,158 @@
+.RateAndComment-form-label {
+  height: 650px;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.RateAndComment-form {
+  background-color: aliceblue;
+  border-radius: 50px;
+  width: 60%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.button-RC-form-subm {
+  height: 40px;
+}
+
+.comment-section {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.comment-section textarea {
+  width: 95%;
+  height: 90%;
+  background-color: rgba(248, 195, 204, 0.2);
+  padding: 30px;
+  text-align: left; /* Ensure the text is left-aligned */
+  border-radius: 45px;
+  font-size: 20px;
+  outline: none;
+  border: none;
+}
+
+.rating-section {
+  width: 100%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+}
+
+.rating-section > * {
+  flex-grow: 1; /* Items will grow to take up available space */
+}
+
+.hidden-radio {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.custom-radio {
+  display: inline-block;
+  cursor: pointer;
+  font-size: 100px;
+  position: relative;
+}
+
+.custom-radio p {
+  transition: all ease-in-out 150ms;
+}
+
+.custom-radio:hover {
+  font-size: 70px;
+}
+
+/* when clicked */
+.hidden-radio:checked + .custom-radio {
+  font-size: 50px;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 120px;
+  color: #000;
+  font-family: "Graduate", serif;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-size: 20px;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  top: 100%; /* Place the tooltip under the text */
+  left: 50%;
+  margin-left: -60px; /* Use half of the width to center the tooltip */
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.custom-radio:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.label-buttons {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  height: 8%;
+  margin-right: 100px;
+}
+
+.label-buttons button {
+  padding-inline: 50px;
+  width: 10%;
+  font-size: 20px;
+}
+
+.label-buttons a, .label-buttons a:focus {
+  padding-inline: 30px;
+  width: 6%;
+  font-size: 20px;
+}
+
+.label-buttons button,
+.label-buttons a {
+  height: 100%;
+  display: flex;
+  margin-left: 20px;
+  justify-content: center;
+  align-items: center;
+  background-color: pink;
+  border-radius: 20px;
+  color: gray;
+  border: none;
+  outline: none;
+  transition: all ease-in-out 150ms;
+}
+
+.label-buttons button:hover,
+.label-buttons a:hover {
+  color: white;
+}
+
+.label-buttons button:hover {
+  width: 13%;
+  height: 120%;
+  font-size: 30px;
+}
+
+.label-buttons a:hover {
+  width: 8%;
+  height: 120%;
+  font-size: 30px;
+}
