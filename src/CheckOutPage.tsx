@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState,  useContext } from "react";
 import { AuthContext, AuthContextType } from "./authContext";
 import CreditCard from "./assets/thumbnail/credit-card.png";
 import "./CheckOutPage.css";
@@ -36,8 +36,7 @@ const CheckOutPage = () => {
     country: "",
     state: "",
     postalCode: "",
-    addressLineOne: "",
-    addressLineTwo: "",
+    address: "",
     status: "pending",
   });
 
@@ -85,7 +84,7 @@ const CheckOutPage = () => {
 
   // ending page (showing)
   const [isSPage, setSPage] = useState(false);
-  const [showingMessage, setShowingMessage] = useState("");
+  // const [showingMessage, setShowingMessage] = useState("");
   const [SError, setSError] = useState();
   const [SInfo, setSInfo] = useState([]);
   const [totalCost, setTotalCost] = useState();
@@ -153,7 +152,7 @@ const CheckOutPage = () => {
       BformData.country &&
       BformData.state &&
       BformData.postalCode &&
-      BformData.addressLineOne
+      BformData.address
     );
   };
 
@@ -291,27 +290,14 @@ const CheckOutPage = () => {
                     />
                   </div>
                   <div className="form-items">
-                    <div>First address</div>
+                    <div>Shipping address</div>
                     <input
                       type="text"
-                      name="addressLineOne"
-                      value={BformData.addressLineOne}
+                      name="address"
+                      value={BformData.address}
                       onChange={BhandleChange}
                       placeholder="first address in here"
                       required
-                      maxLength={255}
-                    />
-                  </div>
-                  <div className="form-items">
-                    <div>
-                      Second address <span>(optional)</span>
-                    </div>
-                    <input
-                      type="text"
-                      name="addressLineTwo"
-                      value={BformData.addressLineTwo}
-                      onChange={BhandleChange}
-                      placeholder="second address in here if you want"
                       maxLength={255}
                     />
                   </div>

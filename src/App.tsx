@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { AuthProvider } from "./authContext";
 import { AuthContext, AuthContextType } from "./authContext";
 import Navbar from "./Navbar";
 import BodyMain from "./ShopBody";
@@ -54,12 +53,12 @@ const App = () => {
           element={
             isAuthenticated ? (
               <>
-                <Navbar />
+                {/* <Navbar /> */}
                 <Profile />
               </>
             ) : (
               <>
-                <Navbar />
+                {/* <Navbar /> */}
                 <Login />
               </>
             )

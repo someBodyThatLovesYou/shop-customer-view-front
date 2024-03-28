@@ -1,11 +1,176 @@
-.PP-profile-label {
-  width: 200px;
-  height: 200px;
+.PP-img-label {
+  width: 400px;
+  height: 400px;
   background: pink;
-  /* border-radius: 9999px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
-.PP-profile-label img {
-  width: 200px;
-  height: 200px;
+
+.PP-img-label > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   border-radius: 9999px;
+}
+
+.edit {
+  position: absolute;
+  border: none;
+  bottom: 30px;
+  right: 10px;
+  background-color: white;
+  font-size: 20px;
+  border-radius: 20px;
+  padding-inline: 10px;
+  padding-block: 3px;
+}
+
+.edit:active {
+  font-size: 19px;
+}
+
+
+.page-label {
+  height: 730px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.page {
+  width: 1530px;
+  display: flex;
+}
+
+.sidebar {
+  border-radius: 13px;
+  background-color: aliceblue;
+  width: 5%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding-top: 20px;
+}
+
+.sidebar > a, .sidebar > button {
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 0px 66px 0px -48px rgba(0, 0, 0, 0.1),
+    inset 0px 0px 24px 24px rgba(25, 35, 2123, 0.1);
+  transition: all ease-out 300ms;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: none;
+}
+
+.sidebar > a:hover, .sidebar > button:hover {
+  background-color: pink;
+  border: 1px solid gray;
+}
+
+.sidebar > button:active {
+  width: 60px;
+  height: 60px
+}
+
+.sidebar > .home {
+  font-size: 30px;
+  padding-inline: 10px;
+  padding-block: 6px;
+}
+
+.sidebar > .order-history {
+  font-size: 30px;
+  padding-inline: 6px;
+  padding-block: 6px;
+}
+
+.sidebar > .answers {
+  font-size: 30px;
+  padding-inline: 5.5px;
+  padding-block: 6px;
+}
+
+.sidebar > .ingaged-orders {
+  padding-inline: 8px;
+}
+
+.sidebar > .ingaged-orders > img {
+  width: 46px;
+  height: 44px;
+}
+
+.log-out-label {
+  margin-top: auto;
+  margin-bottom: 10px;
+}
+
+.log-out-label > button {
+  border: none;
+  background-color: #D20062;
+  color: whitesmoke;
+  font-size: 15px;
+  padding-block: 15px;
+  padding-inline: 5px;
+  border-radius: 15px;
+  transition: all ease-out 100ms;
+}
+
+.log-out-label > button:active {
+  border: 3px solid pink;
+  color: black;
+}
+
+.page-label .page > .main {
+  width: 95%;
+  height: 100%;
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page > .main > .profile-body {
+  width: 1200px;
+  height: 650px;
+  background-color: aqua;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page > .main > .profile-body > .PP-profile-label {
+  display: flex;
+  background-color: white;
+  gap: 10px;
+  justify-content: center;
+
+}
+
+.page > .main > .profile-body > .PP-profile-label > div {
+  /* background-color: blue; */
+  display: flex;
+  justify-content: center;
+}
+
+.page > .main > .profile-body > .PP-profile-label > div:nth-child(1) {
+  width: 300px;
+  display: flex;
+  align-items: center;
+}
+
+.page > .main > .profile-body > .PP-profile-label > div:nth-child(2) {
+  width: 500px;
+}
+
+.page > .main > .profile-body > .PP-profile-label > div:nth-child(3) {
+  width: 350px;
+  display: flex;
+  align-items: center;
 }

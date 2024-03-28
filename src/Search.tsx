@@ -13,7 +13,7 @@ const Search = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/products`);
+        const response = await fetch(`${API_BASE_URL}/searchProducts`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -57,7 +57,7 @@ const Search = () => {
           <h2 className="text-success">Loading...</h2>
         </div>
       ) : productError ? (
-        <div>
+        <div className='container'>
           <h4 className="text-danger">Error: </h4>
           {productError}
         </div>
