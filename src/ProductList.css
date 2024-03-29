@@ -26,12 +26,12 @@
   justify-content: center;
   min-height: 50%;
   flex: 1;
+}
 
-  & p {
-    overflow-wrap: break-word;
-    opacity: 0.3;
-    display: none;
-  }
+.text-part > p {
+  overflow-wrap: break-word;
+  opacity: 0.3;
+  display: none;
 }
 
 .product-div .img-label {

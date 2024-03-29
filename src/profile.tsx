@@ -127,6 +127,68 @@ const Profile = () => {
     setImage(customer.image);
   }, [customer]);
 
+  const [orders, setOrders] = useState([]);
+  const [ordersLoading, setOrdersLoading] = useState(true);
+  const [ordersError, setOrdersError] = useState();
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/ordersIngageCustomer/${customer.id}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setOrders(data);
+        setOrdersLoading(false);
+      } catch (error) {
+        setOrdersError(error.message);
+        setOrdersLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, []);
+
+  const [HistOrders, setHistOrders] = useState([]);
+  const [HistOrdersLoading, setHistOrdersLoading] = useState(true);
+  const [HistOrdersError, setHistOrdersError] = useState();
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await fetch(
+          `${API_BASE_URL}/ordersHistoryCustomer/${customer.id}`
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setHistOrders(data);
+        setHistOrdersLoading(false);
+      } catch (error) {
+        setHistOrdersError(error.message);
+        setHistOrdersLoading(false);
+      }
+    };
+
+    fetchProduct();
+  }, []);
+
+  const statusCheck = (status) => {
+    if (status === "canceled") {
+      return "text-danger";
+    } else if (status === "completed") {
+      return "text-success";
+    } else if (status === "sent") {
+      return "text-primary";
+    } else {
+      return "";
+    }
+  };
+
   return (
     <div className="page-label">
       <div className="page">
@@ -153,10 +215,12 @@ const Profile = () => {
         </div>
         <div className="main">
           {isProfPage && (
-            <div className="profile-body position-relative">
+            <div className="profile-body">
               <form onSubmit={handleSubmit} className="PP-profile-label">
-                <div className="left">
+                <div className="left flex-column">
+                  <span className="align-self-start">Email</span>
                   <input
+                    className="ms-5"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -165,7 +229,9 @@ const Profile = () => {
                 </div>
                 <div className="middle">
                   <div className="PP-img-label">
+                    <span>Name</span>
                     <input
+                      className="name-input-section"
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -190,22 +256,99 @@ const Profile = () => {
                       id="imageInput"
                       className="d-none"
                       onChange={handleImageChange}
+                      placeholder="file"
                     />
                   </div>
                 </div>
-                <div className="right">
+                <div className="right flex-column position-relative">
+                  <span className="align-self-start">Phone</span>
                   <input
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="Phone"
                   />
+                  <button
+                    className="position-absolute top-0 end-0 submit-button"
+                    type="submit"
+                  >
+                    <i className="fa-solid fa-check"></i> update
+                  </button>
                 </div>
-                <button className="position-absolute" type="submit">
-                  UPDATE
-                </button>
               </form>
             </div>
+          )}
+          {isIngagePage && (
+            <div className="track-body">
+              <h1>Track order</h1>
+              <hr />
+              {orders.map((order) => (
+                <>
+                  <div className="order-body">
+                    <span className="text-capitalize text-warning">
+                      <strong>{order.id}</strong>
+                    </span>
+                    <div className="total_amount">
+                      <div className="total">
+                        <span>total: </span>
+                        {order.total_amount}
+                      </div>
+                    </div>
+                    <div className="status">
+                      <div>
+                        <span>status: </span>
+                        <i className={statusCheck(order.status)}>
+                          {order.status}
+                        </i>
+                      </div>
+                    </div>
+                    <div className="date">
+                      <p>{order.date}</p>
+                    </div>
+                  </div>
+                </>
+              ))}
+            </div>
+          )}
+          {isHistPage && (
+            <>
+              <div className="hist-body">
+                <h1>Order history</h1>
+                <hr />
+                {HistOrders.map((order) => (
+                  <>
+                    <div className="order-body-history">
+                      <span className="text-capitalize text-warning">
+                        <strong>{order.id}</strong>
+                      </span>
+                      <div className="total_amount">
+                        <div className="total">
+                          {/* {"    "} */}
+                          <span>total: </span>
+                          {order.total_amount}
+                        </div>
+                      </div>
+                      <div className="status">
+                        <div>
+                          <span>status: </span>
+                          <i className={statusCheck(order.status)}>
+                            {order.status}
+                          </i>
+                        </div>
+                      </div>
+                      <div className="date">
+                        <p>{order.date}</p>
+                      </div>
+                    </div>
+                  </>
+                ))}
+              </div>
+            </>
+          )}
+          {isAnsPage && (
+            <>
+              <div className="ans-body">answer</div>
+            </>
           )}
         </div>
       </div>

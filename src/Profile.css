@@ -1,7 +1,7 @@
 .PP-img-label {
   width: 400px;
-  height: 400px;
-  background: pink;
+  height: 500px;
+  /* background: pink; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,9 +18,9 @@
 .edit {
   position: absolute;
   border: none;
-  bottom: 30px;
-  right: 10px;
-  background-color: white;
+  bottom: 20px;
+  right: 20px;
+  background-color: whitesmoke;
   font-size: 20px;
   border-radius: 20px;
   padding-inline: 10px;
@@ -30,7 +30,6 @@
 .edit:active {
   font-size: 19px;
 }
-
 
 .page-label {
   height: 730px;
@@ -56,7 +55,8 @@
   padding-top: 20px;
 }
 
-.sidebar > a, .sidebar > button {
+.sidebar > a,
+.sidebar > button {
   cursor: pointer;
   border-radius: 10px;
   box-shadow: 0px 66px 0px -48px rgba(0, 0, 0, 0.1),
@@ -69,14 +69,15 @@
   border: none;
 }
 
-.sidebar > a:hover, .sidebar > button:hover {
+.sidebar > a:hover,
+.sidebar > button:hover {
   background-color: pink;
   border: 1px solid gray;
 }
 
 .sidebar > button:active {
   width: 60px;
-  height: 60px
+  height: 60px;
 }
 
 .sidebar > .home {
@@ -113,7 +114,7 @@
 
 .log-out-label > button {
   border: none;
-  background-color: #D20062;
+  background-color: #d20062;
   color: whitesmoke;
   font-size: 15px;
   padding-block: 15px;
@@ -130,31 +131,32 @@
 .page-label .page > .main {
   width: 95%;
   height: 100%;
-  background-color: red;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .page > .main > .profile-body {
-  width: 1200px;
+  width: 1300px;
   height: 650px;
-  background-color: aqua;
   display: flex;
+  background-color: aliceblue;
+  border-radius: 50px;
   justify-content: center;
   align-items: center;
 }
 
+.page > .main > .left, .page > .main > .middle, .page > .main > .right {
+  overflow: hidden;
+}
+
 .page > .main > .profile-body > .PP-profile-label {
   display: flex;
-  background-color: white;
   gap: 10px;
   justify-content: center;
-
 }
 
 .page > .main > .profile-body > .PP-profile-label > div {
-  /* background-color: blue; */
   display: flex;
   justify-content: center;
 }
@@ -173,4 +175,154 @@
   width: 350px;
   display: flex;
   align-items: center;
+}
+
+.submit-button {
+  border: none;
+  outline: none;
+  padding-inline: 13px;
+  padding-block: 10px;
+  margin: 10px;
+  background: #fff7fc;
+  border: 1px solid silver;
+  border-radius: 10px;
+  color: dodgerblue;
+}
+
+.submit-button:active {
+  border: 2px solid silver;
+  color: darkgreen;
+  background-color: aliceblue;
+}
+
+.page > .main > .profile-body > .PP-profile-label input {
+  font-size: 30px;
+  padding-left: 10px;
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: transparent;
+  margin-bottom: 10px;
+  font-family: "Kameron", serif;
+  font-weight: 500;
+}
+
+.page
+  > .main
+  > .profile-body
+  > .PP-profile-label
+  input:not(.name-input-section):active {
+  font-size: 23px;
+}
+
+.page > .main > .profile-body span {
+  font-size: 30px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  background: rgb(9, 9, 121);
+  background: radial-gradient(
+    circle,
+    rgba(9, 9, 121, 1) 27%,
+    rgba(0, 2, 36, 1) 76%,
+    rgba(0, 255, 166, 1) 100%
+  );
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.page > .main > .track-body {
+  width: 90%;
+  height: 90%;
+}
+
+.page > .main > .hist-body {
+  width: 90%;
+  height: 90%;
+}
+
+.order-body-history {
+  margin-left: 20px;
+  width: 56%;
+  height: 10%;
+  border-radius: 20px;
+  margin-top: 20px;
+  background-color: aliceblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.order-body {
+  margin-left: 20px;
+  width: 56%;
+  height: 10%;
+  border-radius: 20px;
+  margin-top: 20px;
+  background-color: aliceblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+}
+
+.order-body > div > div > span {
+  font-size: 20px;
+  font-weight: normal;
+  color: gray;
+}
+
+.order-body > div > .total {
+  color: gray;
+}
+
+.order-body > div > div,
+.order-body > div > i {
+  font-size: 20px;
+  font-weight: bold;
+  color: coral;
+}
+
+.order-body > div > p {
+  padding-top: 20px;
+  font-size: 15px;
+  font-style: oblique;
+  font-weight: 500;
+}
+
+.order-body-history > div > div > span {
+  font-size: 20px;
+  font-weight: normal;
+  color: gray;
+}
+
+.order-body-history > div > .total {
+  color: gray;
+}
+
+.order-body-history > div > div,
+.order-body-history > div > i {
+  font-size: 20px;
+  font-weight: bold;
+  color: coral;
+}
+
+.order-body-history > div > p {
+  padding-top: 20px;
+  font-size: 15px;
+  font-style: oblique;
+  font-weight: 500;
+}
+
+.fade-alert {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
