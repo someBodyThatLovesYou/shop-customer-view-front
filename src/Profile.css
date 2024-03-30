@@ -378,7 +378,7 @@
   border-radius: 15px;
   padding: 7px;
   padding-inline: 10px;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .main > .ans-body > .answer > .bottom {
@@ -410,5 +410,5 @@
   display: flex;
   padding: 7px;
   padding-inline: 10px;
-  overflow: hidden;
+  overflow-x: hidden;
 }
