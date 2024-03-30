@@ -55,3 +55,16 @@ input[type="search"]::-webkit-search-cancel-button {
   background-size: contain; /* Adjust the size of the icon */
   cursor: pointer; /* Changes the cursor to a pointer when hovering over the button */
 }
+
+.fade-alert {
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

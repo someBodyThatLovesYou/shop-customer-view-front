@@ -9,7 +9,7 @@ const Profile = () => {
     AuthContext
   ) as AuthContextType;
 
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
   const [isProfPage, setProfPage] = useState(true);
   const [isIngagePage, setIngagePage] = useState<boolean>(false);
@@ -67,6 +67,8 @@ const Profile = () => {
     }
   };
 
+  const [profError, setProfError] = useState();
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
@@ -84,7 +86,8 @@ const Profile = () => {
         console.error("Failed to update profile");
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
+      // console.error("Error updating profile:", error);
+      setProfError(error.message);
     }
   };
 
@@ -189,6 +192,29 @@ const Profile = () => {
     }
   };
 
+  const [ans, setAns] = useState([]);
+  const [ansLoading, setAnsLoading] = useState(true);
+  const [ansError, setAnsError] = useState();
+
+  useEffect(() => {
+    const fetchAns = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/FeedAnsR/${customer.id}`);
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setAns(data);
+        setAnsLoading(false);
+      } catch (error) {
+        setAnsError(error.message);
+        setAnsLoading(false);
+      }
+    };
+
+    fetchAns();
+  }, []);
+
   return (
     <div className="page-label">
       <div className="page">
@@ -214,71 +240,91 @@ const Profile = () => {
           </span>
         </div>
         <div className="main">
-          {isProfPage && (
-            <div className="profile-body">
-              <form onSubmit={handleSubmit} className="PP-profile-label">
-                <div className="left flex-column">
-                  <span className="align-self-start">Email</span>
-                  <input
-                    className="ms-5"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Email"
-                  />
-                </div>
-                <div className="middle">
-                  <div className="PP-img-label">
-                    <span>Name</span>
+          {isProfPage && profError && (
+            <>
+              <div className="container">
+                <span className="text-danger">Error: </span> {profError}
+              </div>
+            </>
+          )}
+          {!profError && isProfPage && (
+            <>
+              <div className="profile-body">
+                <form onSubmit={handleSubmit} className="PP-profile-label">
+                  <div className="left flex-column">
+                    <span className="align-self-start">Email</span>
                     <input
-                      className="name-input-section"
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Name"
-                    />
-                    <img src={image} alt="prof" />
-                    {/* <button className="edit">
-                      <i className="fa-solid fa-pen"></i>
-                      {"  "}edit
-                    </button> */}
-                    <button
-                      className="edit"
-                      onClick={() =>
-                        document.getElementById("imageInput")?.click()
-                      }
-                    >
-                      <i className="fa-solid fa-pen"></i>
-                      {"  "}edit
-                    </button>
-                    <input
-                      type="file"
-                      id="imageInput"
-                      className="d-none"
-                      onChange={handleImageChange}
-                      placeholder="file"
+                      className="ms-5"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Email"
                     />
                   </div>
-                </div>
-                <div className="right flex-column position-relative">
-                  <span className="align-self-start">Phone</span>
-                  <input
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    placeholder="Phone"
-                  />
-                  <button
-                    className="position-absolute top-0 end-0 submit-button"
-                    type="submit"
-                  >
-                    <i className="fa-solid fa-check"></i> update
-                  </button>
-                </div>
-              </form>
-            </div>
+                  <div className="middle">
+                    <div className="PP-img-label">
+                      <span>Name</span>
+                      <input
+                        className="name-input-section"
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Name"
+                      />
+                      <img src={image} alt="prof" />
+                      <button
+                        className="edit"
+                        onClick={() =>
+                          document.getElementById("imageInput")?.click()
+                        }
+                      >
+                        <i className="fa-solid fa-pen"></i>
+                        {"  "}edit
+                      </button>
+                      <input
+                        type="file"
+                        id="imageInput"
+                        className="d-none"
+                        onChange={handleImageChange}
+                        placeholder="file"
+                      />
+                    </div>
+                  </div>
+                  <div className="right flex-column position-relative">
+                    <span className="align-self-start">Phone</span>
+                    <input
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="Phone"
+                    />
+                    <button
+                      className="position-absolute top-0 end-0 submit-button"
+                      type="submit"
+                    >
+                      <i className="fa-solid fa-check"></i> update
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </>
           )}
-          {isIngagePage && (
+
+          {isIngagePage && ordersError && (
+            <>
+              <div className="container">
+                <span className="text-danger">Error: </span> {ordersError}
+              </div>
+            </>
+          )}
+          {isIngagePage && ordersLoading && (
+            <>
+              <div className="container">
+                <span className="text-danger">Loading .. </span>
+              </div>
+            </>
+          )}
+          {!ordersLoading && !ordersError && isIngagePage && (
             <div className="track-body">
               <h1>Track order</h1>
               <hr />
@@ -310,7 +356,22 @@ const Profile = () => {
               ))}
             </div>
           )}
-          {isHistPage && (
+
+          {isHistPage && HistOrdersError && (
+            <>
+              <div className="container">
+                <span className="text-danger">Error: </span> {HistOrdersError}
+              </div>
+            </>
+          )}
+          {isHistPage && HistOrdersLoading && (
+            <>
+              <div className="container">
+                <span className="text-danger">Loading .. </span>
+              </div>
+            </>
+          )}
+          {!HistOrdersError && !HistOrdersLoading && isHistPage && (
             <>
               <div className="hist-body">
                 <h1>Order history</h1>
@@ -345,10 +406,44 @@ const Profile = () => {
               </div>
             </>
           )}
-          {isAnsPage && (
+
+          {isAnsPage && ansError && (
             <>
-              <div className="ans-body">answer</div>
+              <div className="container">
+                <span className="text-danger">Error: </span> {ansError}
+              </div>
             </>
+          )}
+          {isAnsPage && ansLoading && (
+            <>
+              <div className="container">
+                <span className="text-danger">Loading .. </span>
+              </div>
+            </>
+          )}
+          {!ansError && !ansLoading && isAnsPage && (
+            <div className="ans-body">
+              {ans.map((answer) => (
+                <div className="answer">
+                  <div className="top">
+                    <div className="body">
+                      <div className="top">
+                        <span>{customer.name}</span>
+                        <p>{answer.cus_date}</p>
+                      </div>
+                      <div className="bottom">{answer.feedback}</div>
+                    </div>
+                  </div>
+                  <div className="bottom">
+                    <div className="top">
+                      <span className="ms-3 text-primary">{answer.admin_name}</span>
+                      <span className="adDate">{answer.ans_date}</span>
+                    </div>
+                    <div className="bottom">{answer.answer}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </div>
