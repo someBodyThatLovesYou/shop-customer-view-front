@@ -88,12 +88,12 @@ jobs:
         path: ./dist
 
  deploy:
-  name: Deploy
-  needs: build
-  runs-on: ubuntu-latest
-  if: github.ref == 'refs/heads/main'
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
-  steps:
+    steps:
     - name: Download artifact
       uses: actions/download-artifact@v2
       with:
