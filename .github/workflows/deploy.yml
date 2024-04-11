@@ -54,7 +54,7 @@
 
 
 
-name: Your Workflow Name
+name: Deploy
 
 on:
  push:
