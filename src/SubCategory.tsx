@@ -4,10 +4,11 @@ import { useParams } from "react-router-dom";
 import "./SubCategory.css";
 
 const SubCategory = () => {
+  const { id } = useParams();
+  
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
   const BASE = import.meta.env.VITE_DEPLOY_BASE_ORIGIN
 
-  const { id } = useParams();
   const [products, setProducts] = useState([
     { id: "", product_id: "", image: "", name: "", description: "", price: "" },
   ]);
