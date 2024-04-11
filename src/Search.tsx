@@ -1,10 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import "./Search.css";
+// import { ifError } from "assert";
 
 const Search = () => {
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
-  const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
-  
+  const BASE = import.meta.env.VITE_DEPLOY_BASE_ORIGIN;
+
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [products, setProducts] = useState([
     { id: "", product_id: "", image: "", name: "", description: "", price: "" },
@@ -40,10 +41,14 @@ const Search = () => {
     }
   }, []);
 
+  let filteredProducts = {}
+
   // Function to filter products based on the search query
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  if (!productError && !productLoading) {
+    filteredProducts = products.filter((product) =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
 
   return (
     <>
@@ -56,42 +61,44 @@ const Search = () => {
           ref={searchInputRef} // Attach the ref to the input element
         />
       </div>
-      {productLoading ? (
+      {productLoading && (
         <div className="container">
           <h2 className="text-success">Loading...</h2>
         </div>
-      ) : productError ? (
+      )}
+      {productError && (
         <div className="container">
           <h4 className="text-danger">Error: </h4>
           {productError}
         </div>
-      ) : (
-        <div className="product-container container col-12 rounded-4">
-          {searchQuery &&
-            filteredProducts.map((product) => (
-              <a
-                href={`/${BASE}/products/${product.product_id}`}
-                className="container bg-light rounded-4 product-div"
-                key={product.product_id}
-              >
-                <div className="img-label rounded-4">
-                  <img
-                    src={`data:image/jpeg;base64,${product.image}`}
-                    alt={product.name}
-                    className="product-img rounded-5 p-1"
-                  />
-                </div>
-                <div className="text-part">
-                  <h2>{product.name}</h2>
-                  <h6>{product.description}</h6>
-                  <p>
-                    <strong>{product.price}$</strong>
-                  </p>
-                </div>
-              </a>
-            ))}
-        </div>
       )}
+      <div className="product-container container col-12 rounded-4">
+        {!productLoading &&
+          !productError &&
+          searchQuery &&
+          filteredProducts.map((product) => (
+            <a
+              href={`/${BASE}/products/${product.product_id}`}
+              className="container bg-light rounded-4 product-div"
+              key={product.product_id}
+            >
+              <div className="img-label rounded-4">
+                <img
+                  src={`data:image/jpeg;base64,${product.image}`}
+                  alt={product.name}
+                  className="product-img rounded-5 p-1"
+                />
+              </div>
+              <div className="text-part">
+                <h2>{product.name}</h2>
+                <h6>{product.description}</h6>
+                <p>
+                  <strong>{product.price}$</strong>
+                </p>
+              </div>
+            </a>
+          ))}
+      </div>
     </>
   );
 };

@@ -18,7 +18,7 @@ const App = () => {
   const { isAuthenticated } = useContext(AuthContext) as AuthContextType;
   console.log(isAuthenticated);
 
-  const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
+  const BASE = import.meta.env.VITE_DEPLOY_BASE_ORIGIN
   console.log(BASE)
 
   return (
@@ -75,7 +75,6 @@ const App = () => {
               </>
             ) : (
               <>
-                <Navbar />
                 <Login />
               </>
             )
@@ -85,7 +84,6 @@ const App = () => {
           path={`/${BASE}/Login`}
           element={
             <>
-              <Navbar />
               <Login />
             </>
           }
@@ -127,7 +125,6 @@ const App = () => {
               </>
             ) : (
               <>
-                <Navbar />
                 <Login />
               </>
             )

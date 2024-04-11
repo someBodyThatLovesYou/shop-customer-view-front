@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./SignUp.css";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+const BASE = import.meta.env.VITE_DEPLOY_BASE_ORIGIN
 
 const SignUp = () => {
   const [message, setMessage] = useState("");
@@ -34,7 +35,7 @@ const SignUp = () => {
 
   useEffect(() => {
     if (message === "User registered successfully") {
-      navigate("/Login");
+      navigate(`/${BASE}/Login`);
     }
   }, [message, navigate]);
 

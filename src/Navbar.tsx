@@ -8,7 +8,7 @@ import Logo from "/icons8-stellarium-logo.svg";
 import { AuthContext, AuthContextType } from "./authContext";
 
 const Navbar = () => {
-  const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
+  const BASE = import.meta.env.VITE_DEPLOY_BASE_ORIGIN
   
   const { isAuthenticated, customer } = useContext(
     AuthContext

@@ -4,7 +4,7 @@ import "./CategoryPage.css";
 
 const CategoryPage = () => {
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
-  const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
+  const BASE = import.meta.env.VITE_DEPLOY_BASE_ORIGIN
   
   const { id } = useParams();
   const [category, setCategory] = useState([

@@ -5,7 +5,7 @@ import "./ProductPage.css";
 // import thumbnail from "./assets/thumbnail/orange-product.jpg";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
-const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
+const BASE = import.meta.env.VITE_DEPLOY_BASE_ORIGIN
 
 const ProductPage = () => {
   const { id } = useParams();

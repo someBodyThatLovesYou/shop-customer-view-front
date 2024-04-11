@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const CheckOutPage = () => {
   const navigate = useNavigate();
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
-  const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
+  const BASE = import.meta.env.VITE_DEPLOY_BASE_ORIGIN
 
   const { customer } = useContext(AuthContext) as AuthContextType;
   const [isOnline, setIsOnline] = useState(true);
@@ -234,7 +234,7 @@ const CheckOutPage = () => {
 
   const handleRCsubmit = () => {
     sendRaCinfo();
-    navigate(`/Cart/${customer.name}`);
+    navigate(`/${BASE}/Cart/${customer.name}`);
   };
 
   return (

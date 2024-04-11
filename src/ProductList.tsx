@@ -3,7 +3,7 @@ import { useEffect, useState /* , useContext */ } from "react";
 import "./ProductList.css";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
-const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
+const BASE = import.meta.env.VITE_DEPLOY_BASE_ORIGIN
 
 function ProductList() {
   const [products, setProducts] = useState([
@@ -48,7 +48,7 @@ function ProductList() {
         </div>
       )}
       {/* intire body for each products */}
-      {products.map((product) => (
+      { !ProductError && !ProductLoading && products.map((product) => (
         <a
           href={`/${BASE}/products/${product.id}`}
           className="container bg-light rounded-4 product-div"

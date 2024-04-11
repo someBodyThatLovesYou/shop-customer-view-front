@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "./CategoryList.css";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
-const BASE = import.meta.env.DEPLOY_BASE_ORIGIN;
+const BASE = import.meta.env.VITE_DEPLOY_BASE_ORIGIN;
 
 const CategoryList = () => {
   const [categories, setCategories] = useState([
@@ -45,7 +45,7 @@ const CategoryList = () => {
           {categoriesError}
         </div>
       )}
-      {categories.map((category) => (
+      {!categoriesLoading && !categoriesError && categories.map((category) => (
         // intire body for each category
         <a
           href={`/${BASE}/category/${category.category_id}`}
