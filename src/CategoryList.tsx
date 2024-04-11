@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./CategoryList.css";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+const BASE = import.meta.env.DEPLOY_BASE_ORIGIN;
 
 const CategoryList = () => {
   const [categories, setCategories] = useState([
@@ -47,7 +48,7 @@ const CategoryList = () => {
       {categories.map((category) => (
         // intire body for each category
         <a
-          href={`/category/${category.category_id}`}
+          href={`/${BASE}/category/${category.category_id}`}
           className="category-div my-4 rounded-4 bg-light"
           key={category.category_id}
         >

@@ -3,6 +3,8 @@ import "./Search.css";
 
 const Search = () => {
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+  const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
+  
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [products, setProducts] = useState([
     { id: "", product_id: "", image: "", name: "", description: "", price: "" },
@@ -68,7 +70,7 @@ const Search = () => {
           {searchQuery &&
             filteredProducts.map((product) => (
               <a
-                href={`/products/${product.product_id}`}
+                href={`/${BASE}/products/${product.product_id}`}
                 className="container bg-light rounded-4 product-div"
                 key={product.product_id}
               >

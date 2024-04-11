@@ -4,6 +4,8 @@ import "./CategoryPage.css";
 
 const CategoryPage = () => {
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+  const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
+  
   const { id } = useParams();
   const [category, setCategory] = useState([
     { category_id: "", image: "", name: "", description: "" },
@@ -48,7 +50,7 @@ const CategoryPage = () => {
           )}
           {category.map((column) => (
             <a
-              href={`/subCategory/${column.category_id}`}
+              href={`/${BASE}/subCategory/${column.category_id}`}
               className="category-section"
             >
               <div className="category-image-label">

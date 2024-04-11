@@ -5,6 +5,8 @@ import ingagedOrder from "./assets/thumbnail/tracking.png";
 
 const Profile = () => {
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+  const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
+
   const { setIsAuthenticated, customer, setCustomer } = React.useContext(
     AuthContext
   ) as AuthContextType;
@@ -252,7 +254,7 @@ const Profile = () => {
     <div className="page-label">
       <div className="page">
         <div className="sidebar">
-          <a href="/" className="home">
+          <a href={`/${BASE}/`} className="home">
             <i className="fa-solid fa-house"></i>
             <h6>home</h6>
           </a>

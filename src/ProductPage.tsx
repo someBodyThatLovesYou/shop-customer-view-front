@@ -5,6 +5,7 @@ import "./ProductPage.css";
 // import thumbnail from "./assets/thumbnail/orange-product.jpg";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -126,7 +127,7 @@ const ProductPage = () => {
                     </div>
                   ) : (
                     <div className="redirect-sign-label">
-                      <a href="/Login">click to sign in or up first</a>
+                      <a href={`/${BASE}/Login`}>click to sign in or up first</a>
                     </div>
                   )}
                 </div>

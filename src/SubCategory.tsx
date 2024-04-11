@@ -5,6 +5,7 @@ import "./SubCategory.css";
 
 const SubCategory = () => {
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+  const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
 
   const { id } = useParams();
   const [products, setProducts] = useState([
@@ -59,7 +60,7 @@ const SubCategory = () => {
       {/* intire body for each products */}
       {products.map((product) => (
         <a
-          href={`/products/${product.id}`}
+          href={`/${BASE}/products/${product.id}`}
           className="container bg-light rounded-4 product-div"
           key={product.product_id}
         >

@@ -4,6 +4,7 @@ import "./Cart.css";
 
 const ShoppingCart = () => {
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+  const BASE = import.meta.env.DEPLOY_BASE_ORIGIN;
 
   const [cartItems, setCartItems] = useState([
     {
@@ -170,7 +171,7 @@ const ShoppingCart = () => {
                   {item.quantity !== 0 && (
                     <a
                       // key={item.cart_id}
-                      href={`/products/${item.product_id}`}
+                      href={`/${BASE}/products/${item.product_id}`}
                       className="cart-item rounded-4"
                     >
                       <div className="left ps-3">
@@ -266,7 +267,7 @@ const ShoppingCart = () => {
                         <span className="info-content">{totalCost}$</span>
                       </p>
                       <div className="chack-out-button-label">
-                        <a href={`CheckOut`} className="chack-out-button">
+                        <a href={`/${BASE}/CheckOut`} className="chack-out-button">
                           Check out
                         </a>
                       </div>

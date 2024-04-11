@@ -18,11 +18,13 @@ const App = () => {
   const { isAuthenticated } = useContext(AuthContext) as AuthContextType;
   console.log(isAuthenticated);
 
+  const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
+
   return (
     <Router>
       <Routes>
         <Route
-          path="/vit-4-0-1-react/"
+          path={`/${BASE}/`}
           element={
             <>
               <Navbar />
@@ -31,7 +33,7 @@ const App = () => {
           }
         />
         <Route
-          path="/products/:id"
+          path={`/${BASE}/products/:id`}
           element={
             <>
               <Navbar />
@@ -40,7 +42,7 @@ const App = () => {
           }
         />
         <Route
-          path="/category/:id"
+          path={`/${BASE}/category/:id`}
           element={
             <>
               <Navbar />
@@ -49,23 +51,21 @@ const App = () => {
           }
         />
         <Route
-          path="/Profile/:id"
+          path={`/${BASE}/Profile/:id`}
           element={
             isAuthenticated ? (
               <>
-                {/* <Navbar /> */}
                 <Profile />
               </>
             ) : (
               <>
-                {/* <Navbar /> */}
                 <Login />
               </>
             )
           }
         ></Route>
         <Route
-          path="/Cart/:id"
+          path={`/${BASE}/Cart/:id`}
           element={
             isAuthenticated ? (
               <>
@@ -81,7 +81,7 @@ const App = () => {
           }
         ></Route>
         <Route
-          path="/Login"
+          path={`/${BASE}/Login`}
           element={
             <>
               <Navbar />
@@ -90,7 +90,7 @@ const App = () => {
           }
         />
         <Route
-          path="/SignUp"
+          path={`/${BASE}/SignUp`}
           element={
             <>
               <Navbar />
@@ -99,7 +99,7 @@ const App = () => {
           }
         />
         <Route
-          path="/Search"
+          path={`/${BASE}/Search`}
           element={
             <>
               <Navbar />
@@ -108,7 +108,7 @@ const App = () => {
           }
         />
         <Route
-          path="/subCategory/:id"
+          path={`/${BASE}/subCategory/:id`}
           element={
             <>
               <Navbar />
@@ -117,7 +117,7 @@ const App = () => {
           }
         />
         <Route
-          path="/Cart/CheckOut"
+          path={`/${BASE}/Cart/CheckOut`}
           element={
             isAuthenticated ? (
               <>

@@ -6,6 +6,8 @@ import rightThumbnail from "./assets/thumbnail/login.webp";
 
 const Login = () => {
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
+  const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
+  
   const { setIsAuthenticated, setCustomer } = useContext(
     AuthContext
   ) as AuthContextType;
@@ -105,7 +107,7 @@ const Login = () => {
                 </button>
                 <h6 className="login-form-sign-up">
                   <span className="d-h-a-a">Dont have an account?</span>
-                  <a href="/SignUp">Sign Up</a>
+                  <a href={`/${BASE}/SignUp`}>Sign Up</a>
                 </h6>
               </form>
             </div>
