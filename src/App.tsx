@@ -22,7 +22,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route
-          path="/"
+          path="/vit-4-0-1-react/"
           element={
             <>
               <Navbar />
