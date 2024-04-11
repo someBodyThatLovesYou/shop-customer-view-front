@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    # name: Build
+    name: Build
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: '20'
+          node-version: 20
 
       - name: Install dependencies
         uses: bahmutov/npm-install@v1
