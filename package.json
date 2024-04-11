@@ -11,6 +11,9 @@
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx ./src",
     "format": "prettier --write ./src"
   },
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "dependencies": {
     "bootstrap": "^5.3.3",
     "react": "^18.2.0",
