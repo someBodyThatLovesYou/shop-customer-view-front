@@ -10,7 +10,7 @@ export default defineConfig({
   plugins: [react()],
   base:
     process.env.NODE_ENV === "production"
-      ? "/shop-customer-view-front/" // Adjust this to match your GitHub Pages subdirectory
+      ? "/shop-customer-view-front.github.io/" // Adjust this to match your GitHub Pages subdirectory
       : "/",
   build: {
     assetsDir: "assets",
