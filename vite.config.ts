@@ -11,7 +11,7 @@ export default defineConfig({
   //   host: true,
   // },
   // base: "./",
-  base: "/ vit-4-0-1-react/",
+  base: "/vit-4-0-1-react/",
 });
 
 // export default defineConfig({
