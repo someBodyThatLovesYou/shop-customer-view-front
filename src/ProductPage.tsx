@@ -9,14 +9,20 @@ const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 const ProductPage = () => {
   const { id } = useParams();
 
-  const { isAuthenticated, customer, setCustomer, setIsAuthenticated } =
-    React.useContext(AuthContext) as AuthContextType;
+  const { isAuthenticated, customer } = React.useContext(
+    AuthContext
+  ) as AuthContextType;
 
   // product
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState({
+    name: "",
+    description: "",
+    image: "",
+    price: "",
+  });
   const [isProduct, setIsproduct] = useState(false);
   const [ProductLoading, setProductLoading] = useState(true);
-  const [ProductError, setProductError] = useState(null);
+  const [ProductError, setProductError] = useState<string | undefined>();
   // Category Name
   // const [CN, setCN] = useState([]);
   // const [CNLoading, setCNLoading] = useState(true);
@@ -26,7 +32,7 @@ const ProductPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/product/${id}`);
+        const response = await fetch(`${API_BASE_URL}/getProductDetail/${id}`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -35,29 +41,12 @@ const ProductPage = () => {
         setIsproduct(true);
         setProductLoading(false);
       } catch (error) {
-        setProductError(error.message);
+        setProductError((error as Error).message);
         setProductLoading(false);
       }
     };
-    fetchProduct();
 
-    // const fetchCN = async () => {
-    //   try {
-    //     const response = await fetch(
-    //       `${API_BASE_URL}/ALLcategory/${product.category_id}`
-    //     );
-    //     if (!response.ok) {
-    //       throw new Error("Network response was not ok");
-    //     }
-    //     const data = await response.json();
-    //     setCN(data);
-    //     setCNLoading(false);
-    //   } catch (error) {
-    //     setCNError(error.message);
-    //     setCNLoading(false);
-    //   }
-    // };
-    // fetchCN();
+    fetchProduct();
   }, []);
 
   const handleAddToCart = () => {
@@ -126,20 +115,6 @@ const ProductPage = () => {
                   </div>
                 </div>
                 <div className="Cnm-ordr">
-                  {/* {CNLoading && (
-                  <h6 className="container text-success">
-                    Getting category Loading...
-                  </h6>
-                )}
-                {CNError && (
-                  <h5 className="container">
-                    <h6 className="text-danger">
-                      ERROR WHILE GETTING CATEGORY{" "}
-                    </h6>
-                    : {CNError}
-                  </h5>
-                )}
-                {CN && CN.name && <h3>{CN.name}</h3> } */}
                   {isAuthenticated ? (
                     <div className="order_btn">
                       <button

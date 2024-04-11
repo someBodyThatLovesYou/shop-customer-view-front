@@ -12,18 +12,6 @@ const Rating: React.FC<RatingProps> = ({ value, onChange }) => {
   };
 
   return (
-    // <div className='RC-form-item rating-section'>
-    //   {[1, 2, 3, 4, 5].map((rating) => (
-    //     <input
-    //       type="radio"
-    //       name="rating"
-    //       value={rating}
-    //       checked={value === rating}
-    //       onChange={handleChange}
-    //     />
-    //   ))}
-    // </div>
-
     <div className="RC-form-item rating-section">
       {[1, 2, 3, 4, 5].map((rating) => (
         <div key={rating} className="d-flex justify-content-center">

@@ -1,13 +1,15 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState /* , useContext */ } from "react";
 import { useParams } from "react-router-dom";
 import "./CategoryPage.css";
 
 const CategoryPage = () => {
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
   const { id } = useParams();
-  const [category, setCategory] = useState([]);
+  const [category, setCategory] = useState([
+    { category_id: "", image: "", name: "", description: "" },
+  ]);
   const [categoryIsLoading, setCategoryLoading] = useState(true);
-  const [categoryError, setCategoryError] = useState();
+  const [categoryError, setCategoryError] = useState<string | undefined>();
   const [empty, setEmpty] = useState<boolean>();
 
   useEffect(() => {
@@ -21,7 +23,7 @@ const CategoryPage = () => {
         !data.length ? setEmpty(true) : setCategory(data);
         setCategoryLoading(false);
       } catch (error) {
-        setCategoryError(error.message);
+        setCategoryError((error as Error).message);
         setCategoryLoading(false);
       }
     };
@@ -34,9 +36,21 @@ const CategoryPage = () => {
         <h2>Sub categories</h2>
         <hr />
         <div className="categories">
-          {empty && <h1>its not a sub category ..</h1>}
+          {empty && <h1>there is no sub categories here ..</h1>}
+          {categoryIsLoading && (
+            <div className="text-success fs-1 container">Loading ..</div>
+          )}
+          {categoryError && (
+            <div className="container">
+              <span className="text-danger fs-1">Error: </span>
+              {categoryError}
+            </div>
+          )}
           {category.map((column) => (
-            <a href={`/subCategory/${column.category_id}`} className="category-section">
+            <a
+              href={`/subCategory/${column.category_id}`}
+              className="category-section"
+            >
               <div className="category-image-label">
                 <img src={`data:image/png;base64,${column.image}`} alt="" />
               </div>

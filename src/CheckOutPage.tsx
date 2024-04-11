@@ -1,4 +1,4 @@
-import { useState,  useContext } from "react";
+import { useState, useContext } from "react";
 import { AuthContext, AuthContextType } from "./authContext";
 import CreditCard from "./assets/thumbnail/credit-card.png";
 import "./CheckOutPage.css";
@@ -15,10 +15,10 @@ const CheckOutPage = () => {
 
   // billing page
   const [isBPage, setBPage] = useState(true);
-  const BhandleChange = (e) => {
+  const BhandleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setBFormData({ ...BformData, [e.target.name]: e.target.value });
   };
-  const handleCheckboxChange = (e) => {
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const isChecked = e.target.checked;
     setIsOnline(!isChecked);
     if (isChecked) {
@@ -44,10 +44,10 @@ const CheckOutPage = () => {
 
   // check out page
   const [isCOPage, setCheckOutPage] = useState(false);
-  const [COMessage, setCOMessage] = useState("");
-  const [COError, setCOError] = useState();
+  // const [COMessage, setCOMessage] = useState("");
+  const [COError, setCOError] = useState<string | undefined>();
 
-  const COhandleSubmit = async (e) => {
+  const COhandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("data sent");
 
@@ -65,14 +65,14 @@ const CheckOutPage = () => {
       }
 
       const data = await response.json();
-      setCOMessage(data.message);
+      // setCOMessage(data.message);
       // Directly use data.order_id instead of relying on state update
       const orderIdFromResponse = data.order_id;
       setOrderId(orderIdFromResponse);
       // Pass orderIdFromResponse to fetch_COI
       fetch_COI(orderIdFromResponse);
     } catch (error) {
-      setCOError(error.message);
+      setCOError((error as Error).message);
     }
 
     if (isAllPaymentFilled()) {
@@ -85,29 +85,29 @@ const CheckOutPage = () => {
   // ending page (showing)
   const [isSPage, setSPage] = useState(false);
   // const [showingMessage, setShowingMessage] = useState("");
-  const [SError, setSError] = useState();
-  const [SInfo, setSInfo] = useState([]);
+  const [SError, setSError] = useState<string | undefined>();
+  // const [SInfo, setSInfo] = useState([]);
   const [totalCost, setTotalCost] = useState();
   const [invoiceDate, setInvoiceDate] = useState();
 
   // Rating and comment page
   const [isRCPage, setRCPage] = useState(false);
   const [RCMessage, setRCMessage] = useState("");
-  const [RCError, setRCError] = useState();
+  const [RCError, setRCError] = useState<string | undefined>();
   const [CRformData, setCRformData] = useState({
     customerId: customer.id,
     rate: 0,
     comment: "",
   });
 
-  const handleCRchange = (e) => {
+  const handleCRchange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setCRformData({ ...CRformData, [name]: value });
 
     // setCRformData({ ...CRformData, [e.target.name]: e.target.value });
   };
 
-  const fetch_COI = async (orderId) => {
+  const fetch_COI = async (orderId: string) => {
     try {
       const response = await fetch(`${API_BASE_URL}/Invoice/${orderId}`);
       if (!response.ok) {
@@ -118,12 +118,14 @@ const CheckOutPage = () => {
       setTotalCost(invoiceData.total_amount);
       setInvoiceDate(invoiceData.date);
     } catch (error) {
-      setSError(error.message);
+      setSError((error as Error).message);
     }
   };
 
   const [cardNumber, setCardNumber] = useState("");
-  const CardNumberHandleChageCombined = (e) => {
+  const CardNumberHandleChageCombined = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     let value = e.target.value;
     value = value.replace(/\D+/g, "");
     value = value.replace(/(\d{4})/g, "$1 ").trim();
@@ -132,7 +134,9 @@ const CheckOutPage = () => {
   };
 
   const [CVVCard, setCVVCard] = useState("");
-  const CVVCardhandleChangeCombined = (e) => {
+  const CVVCardhandleChangeCombined = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     let value = e.target.value;
     // Remove all non-numeric characters
     value = value.replace(/\D+/g, "");
@@ -183,7 +187,7 @@ const CheckOutPage = () => {
           const data = await response.json();
           console.log(data.message);
         } catch (error) {
-          console.log(error.message);
+          console.log((error as Error).message);
         }
       };
       setBPage(false);
@@ -218,7 +222,7 @@ const CheckOutPage = () => {
         console.log("SUCCESS");
       }
     } catch (error) {
-      setRCError(error.message);
+      setRCError((error as Error).message);
     }
   };
 
@@ -382,6 +386,7 @@ const CheckOutPage = () => {
                           </div>
                           <div className="button-COsubmit">
                             <button
+                              title="pay"
                               type="submit"
                               disabled={!isAllPaymentFilled()}
                             >
@@ -468,6 +473,7 @@ const CheckOutPage = () => {
                     <div className="bottom rounded-5">
                       <div className="content">
                         <button
+                          title="to comment"
                           onClick={handleInvoiceNexeClick}
                           className="rounded-5"
                         >

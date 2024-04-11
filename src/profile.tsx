@@ -67,7 +67,8 @@ const Profile = () => {
     }
   };
 
-  const [profError, setProfError] = useState();
+  const [profError, setProfError] = useState<string | undefined>();
+  const [showMessage, setShowMessage] = useState("");
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -82,16 +83,21 @@ const Profile = () => {
           body: JSON.stringify({ email, name, phone, image }),
         }
       );
+      const messageData = await response.json();
+      if (messageData === "customer successfully updated") {
+        setShowMessage("information successfully updated!");
+      } else {
+        setShowMessage("there is something wrong!");
+      }
       if (!response.ok) {
         console.error("Failed to update profile");
       }
     } catch (error) {
-      // console.error("Error updating profile:", error);
-      setProfError(error.message);
+      setProfError((error as Error).message);
     }
   };
 
-  async function fetchCustomerProfile(custId) {
+  async function fetchCustomerProfile(custId : string) {
     try {
       const response = await fetch(`${API_BASE_URL}/customerProfile/${custId}`);
       if (!response.ok) {
@@ -99,15 +105,16 @@ const Profile = () => {
       }
       const customerProfile = await response.json();
       // Extracting specific fields from the customerProfile object
-      const { id, name, email, phone_number, registration_date, image } =
+      const { id, name, email, phone, registration_date, image } =
         customerProfile;
+      console.log(id, name, email, phone, registration_date, image);
 
       // Update the customer state with the fetched data
       const CustomerData = {
         id: id, // Assuming this is the ID
         name: name, // Assuming this is the name
         email: email, // Assuming this is the email
-        phone: phone_number, // Assuming this is the phone number
+        phone: phone, // Assuming this is the phone number
         registration_date: registration_date, // Assuming this is the registration date
         image: image,
       };
@@ -130,9 +137,12 @@ const Profile = () => {
     setImage(customer.image);
   }, [customer]);
 
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState([
+    { id: "", total_amount: "", status: "", date: "" },
+  ]);
   const [ordersLoading, setOrdersLoading] = useState(true);
-  const [ordersError, setOrdersError] = useState();
+  const [ordersError, setOrdersError] = useState<string | undefined>();
+  const [isOrdersIngageEmpty, setIsOrdersIngageEmpty] = useState<boolean>();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -144,10 +154,15 @@ const Profile = () => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
+        if (!data.length) {
+          setIsOrdersIngageEmpty(true);
+        } else {
+          setIsOrdersIngageEmpty(false);
+        }
         setOrders(data);
         setOrdersLoading(false);
       } catch (error) {
-        setOrdersError(error.message);
+        setOrdersError((error as Error).message);
         setOrdersLoading(false);
       }
     };
@@ -155,9 +170,12 @@ const Profile = () => {
     fetchProduct();
   }, []);
 
-  const [HistOrders, setHistOrders] = useState([]);
+  const [HistOrders, setHistOrders] = useState([
+    { id: "", total_amount: "", status: "", date: "" },
+  ]);
   const [HistOrdersLoading, setHistOrdersLoading] = useState(true);
-  const [HistOrdersError, setHistOrdersError] = useState();
+  const [HistOrdersError, setHistOrdersError] = useState<string | undefined>();
+  const [isOrdersHistEmpty, setIsOrdersHistEmpty] = useState<boolean>();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -169,10 +187,15 @@ const Profile = () => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
+        if (!data.length) {
+          setIsOrdersHistEmpty(true);
+        } else {
+          setIsOrdersHistEmpty(false);
+        }
         setHistOrders(data);
         setHistOrdersLoading(false);
       } catch (error) {
-        setHistOrdersError(error.message);
+        setHistOrdersError((error as Error).message);
         setHistOrdersLoading(false);
       }
     };
@@ -180,7 +203,7 @@ const Profile = () => {
     fetchProduct();
   }, []);
 
-  const statusCheck = (status) => {
+  const statusCheck = (status : string) => {
     if (status === "canceled") {
       return "text-danger";
     } else if (status === "completed") {
@@ -192,9 +215,12 @@ const Profile = () => {
     }
   };
 
-  const [ans, setAns] = useState([]);
+  const [ans, setAns] = useState([
+    { cus_date: "", feedback: "", admin_name: "", ans_date: "", answer: "" },
+  ]);
   const [ansLoading, setAnsLoading] = useState(true);
-  const [ansError, setAnsError] = useState();
+  const [ansError, setAnsError] = useState<string | undefined>();
+  const [isAnsEmpty, setIsAnsEmpty] = useState<boolean>();
 
   useEffect(() => {
     const fetchAns = async () => {
@@ -204,16 +230,23 @@ const Profile = () => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
+        if (!data.length) {
+          setIsAnsEmpty(true);
+        } else {
+          setIsAnsEmpty(false);
+        }
         setAns(data);
         setAnsLoading(false);
       } catch (error) {
-        setAnsError(error.message);
+        setAnsError((error as Error).message);
         setAnsLoading(false);
       }
     };
 
     fetchAns();
   }, []);
+
+  const [alertShown, setAlertShown] = useState(false);
 
   return (
     <div className="page-label">
@@ -239,7 +272,7 @@ const Profile = () => {
             <button onClick={() => setIsAuthenticated(false)}>LogOut</button>
           </span>
         </div>
-        <div className="main">
+        <div className="main position-relative">
           {isProfPage && profError && (
             <>
               <div className="container">
@@ -250,6 +283,24 @@ const Profile = () => {
           {!profError && isProfPage && (
             <>
               <div className="profile-body">
+                {/* notification body */}
+                <div
+                  className={`${
+                    alertShown || "d-none"
+                  } end-0 top-0 z-1 position-absolute py-2 pr-4 m-4 alert alert-primary fade-alert alert-dismissible`}
+                  role="alert"
+                >
+                  <button
+                    type="button"
+                    className="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                    onClick={() => setAlertShown(false)}
+                  ></button>
+                  <span>
+                    <strong className="fs-4">{showMessage}</strong>
+                  </span>
+                </div>
                 <form onSubmit={handleSubmit} className="PP-profile-label">
                   <div className="left flex-column">
                     <span className="align-self-start">Email</span>
@@ -301,6 +352,7 @@ const Profile = () => {
                     <button
                       className="position-absolute top-0 end-0 submit-button"
                       type="submit"
+                      onClick={() => setAlertShown(true)}
                     >
                       <i className="fa-solid fa-check"></i> update
                     </button>
@@ -356,6 +408,11 @@ const Profile = () => {
               ))}
             </div>
           )}
+          {isIngagePage && isOrdersIngageEmpty && (
+            <div className="fs-1 position-absolute">
+              <strong>EMPTY</strong>
+            </div>
+          )}
 
           {isHistPage && HistOrdersError && (
             <>
@@ -406,6 +463,11 @@ const Profile = () => {
               </div>
             </>
           )}
+          {isHistPage && isOrdersHistEmpty && (
+            <div className="fs-1 position-absolute">
+              <strong>EMPTY</strong>
+            </div>
+          )}
 
           {isAnsPage && ansError && (
             <>
@@ -436,13 +498,20 @@ const Profile = () => {
                   </div>
                   <div className="bottom">
                     <div className="top">
-                      <span className="ms-3 text-primary">{answer.admin_name}</span>
+                      <span className="ms-3 text-primary">
+                        {answer.admin_name}
+                      </span>
                       <span className="adDate">{answer.ans_date}</span>
                     </div>
                     <div className="bottom">{answer.answer}</div>
                   </div>
                 </div>
               ))}
+            </div>
+          )}
+          {isAnsPage && isAnsEmpty && (
+            <div className="fs-1 position-absolute">
+              <strong>EMPTY</strong>
             </div>
           )}
         </div>

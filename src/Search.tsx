@@ -3,10 +3,12 @@ import "./Search.css";
 
 const Search = () => {
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
-  const searchInputRef = useRef(null);
-  const [products, setProducts] = useState([]);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [products, setProducts] = useState([
+    { id: "", product_id: "", image: "", name: "", description: "", price: "" },
+  ]);
   const [productLoading, setProductLoading] = useState(true);
-  const [productError, setProductError] = useState();
+  const [productError, setProductError] = useState<string>();
   const [searchQuery, setSearchQuery] = useState("");
 
   // fetching products
@@ -20,7 +22,7 @@ const Search = () => {
         const data = await response.json();
         setProducts(data);
       } catch (error) {
-        setProductError(error.message);
+        setProductError((error as Error).message);
       } finally {
         setProductLoading(false);
       }
@@ -57,7 +59,7 @@ const Search = () => {
           <h2 className="text-success">Loading...</h2>
         </div>
       ) : productError ? (
-        <div className='container'>
+        <div className="container">
           <h4 className="text-danger">Error: </h4>
           {productError}
         </div>

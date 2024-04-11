@@ -1,21 +1,23 @@
-import React, { useEffect, useState, useContext } from "react";
-import { AuthContext, AuthContextType } from "./authContext";
+import { useEffect, useState /* , useContext */ } from "react";
+// import { AuthContext, AuthContextType } from "./authContext";
 import "./ProductList.css";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
 function ProductList() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([
+    { id: "", name: "", image: "", description: "", price: "" },
+  ]);
   const [ProductLoading, setProductLoading] = useState(true);
-  const [ProductError, setProductError] = useState(null);
+  const [ProductError, setProductError] = useState<string | undefined>();
 
-  const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
-    useContext(AuthContext) as AuthContextType;
+  // const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
+  //   useContext(AuthContext) as AuthContextType;
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`${API_BASE_URL}/products`);
+        const response = await fetch(`${API_BASE_URL}/AllProductsForCustomer`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -23,7 +25,7 @@ function ProductList() {
         setProducts(data);
         setProductLoading(false);
       } catch (error) {
-        setProductError(error.message);
+        setProductError((error as Error).message);
         setProductLoading(false);
       }
     };
@@ -47,9 +49,9 @@ function ProductList() {
       {/* intire body for each products */}
       {products.map((product) => (
         <a
-          href={`/products/${product.product_id}`}
+          href={`/products/${product.id}`}
           className="container bg-light rounded-4 product-div"
-          key={product.product_id}
+          key={product.id}
         >
           <div className="img-label rounded-4">
             <img

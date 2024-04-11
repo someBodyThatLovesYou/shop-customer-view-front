@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext, AuthContextType } from "./authContext";
 import "./Login.css";
@@ -6,20 +6,21 @@ import rightThumbnail from "./assets/thumbnail/login.webp";
 
 const Login = () => {
   const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
-  const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
-    useContext(AuthContext) as AuthContextType;
+  const { setIsAuthenticated, setCustomer } = useContext(
+    AuthContext
+  ) as AuthContextType;
 
   const navigate = useNavigate(); // Get the navigate function
 
   const [message, setMessage] = useState("");
-  const [error, setError] = useState();
+  // const [error, setError] = useState<string | undefined>();
 
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -51,13 +52,14 @@ const Login = () => {
         image: RD.image,
       };
       setCustomer(CustomerData);
-      navigate("/");
+      setTimeout(() => navigate("/"), 1000);
     } catch (error) {
-      setError(error.message);
+      // setError((error as Error).message);
+      console.error((error as Error).message)
     }
   };
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("form data sent");
 
@@ -71,6 +73,16 @@ const Login = () => {
           <div className="login-form-section">
             <div className="form">
               <form className="login-form-body" onSubmit={handleLogin}>
+                {message === "User exists" && (
+                  <h2 className="text-success">
+                    <strong>Successful!</strong>
+                  </h2>
+                )}
+                {message === "User does not exist" && (
+                  <h2 className="text-danger">
+                    <strong>Double Check name or phone!</strong>
+                  </h2>
+                )}
                 <h1 className="login-form-title">Welcome back 👋</h1>
                 <input
                   type="text"

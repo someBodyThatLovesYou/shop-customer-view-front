@@ -1,4 +1,8 @@
-import React, { useContext, useState } from "react";
+import {
+  /*  React, */
+  useContext,
+  //  useState
+} from "react";
 import "./navbar.css";
 import Logo from "/icons8-stellarium-logo.svg";
 import { AuthContext, AuthContextType } from "./authContext";
@@ -44,10 +48,7 @@ const Navbar = () => {
           >
             <a href={`/Profile/${userName}`} data-tooltip="profile page">
               <div className="rounded-circle profile-label">
-                <img
-                  src={customer.image}
-                  alt="prof"
-                />
+                <img src={customer.image} alt="prof" />
               </div>
             </a>
           </div>

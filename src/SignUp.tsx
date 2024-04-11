@@ -7,8 +7,8 @@ const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
 const SignUp = () => {
   const [message, setMessage] = useState("");
-  const [error, setError] = useState();
-  const [file, setFile] = useState(null);
+  const [error, setError] = useState<string | undefined>();
+  const [file, setFile] = useState<File | null>(null);
 
   // const { customer, setCustomer } =
   //   React.useContext(AuthContext) as AuthContextType;
@@ -22,11 +22,13 @@ const SignUp = () => {
     image: "",
   });
 
-  const handleChange = (e) => {
-    if (e.target.name === "image") {
-      setFile(e.target.files[0]);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+
+    if (target.name === "image") {
+      setFile(target.files ? target.files[0] : null);
     } else {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+      setFormData({ ...formData, [target.name]: target.value });
     }
   };
 
@@ -34,9 +36,9 @@ const SignUp = () => {
     if (message === "User registered successfully") {
       navigate("/Login");
     }
- }, [message, navigate]);
+  }, [message, navigate]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (file) {
@@ -62,7 +64,8 @@ const SignUp = () => {
           const RD = await response.json();
           setMessage(RD.message);
         } catch (error) {
-          setError(error.message);
+          console.error((error as Error).message);
+          setError((error as Error).message);
         }
       };
     } else {
@@ -82,7 +85,8 @@ const SignUp = () => {
         const RD = await response.json();
         setMessage(RD.message);
       } catch (error) {
-        setError(error.message);
+        console.error((error as Error).message);
+        setError((error as Error).message);
       }
     }
   };

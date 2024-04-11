@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./CategoryList.css";
 
 const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
 const CategoryList = () => {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([
+    { category_id: "", name: "", image: "" },
+  ]);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
-  const [categoriesError, setCategoriesError] = useState(null);
+  const [categoriesError, setCategoriesError] = useState<string | undefined>();
 
   useEffect(() => {
     const fetchCategory = async () => {
@@ -19,11 +21,14 @@ const CategoryList = () => {
         setCategories(data);
         setCategoriesLoading(false);
       } catch (error) {
-        setCategoriesError(error.message);
+        setCategoriesError((error as Error).message);
         setCategoriesLoading(false);
       }
     };
     fetchCategory();
+    const intervalId = setInterval(fetchCategory, 5000);
+    // Cleanup function to clear the interval when the component unmounts
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -42,16 +47,20 @@ const CategoryList = () => {
       {categories.map((category) => (
         // intire body for each category
         <a
-          // href="#"
           href={`/category/${category.category_id}`}
           className="category-div my-4 rounded-4 bg-light"
           key={category.category_id}
         >
           <div className="name-img-part">
             <h4>{category.name}</h4>
-            <img width={21} height={21} className="category-image" src={`data:image/png;base64,${category.image}`} alt="" />
+            <img
+              width={21}
+              height={21}
+              className="category-image"
+              src={`data:image/png;base64,${category.image}`}
+              alt=""
+            />
           </div>
-          {/* <p>{category.description}</p> */}
         </a>
       ))}
     </div>

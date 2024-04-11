@@ -1,19 +1,21 @@
-import React, {useState, useEffect, useContext} from "react";
+import { useState, useEffect /*  useContext */ } from "react";
 import { useParams } from "react-router-dom";
-import { AuthContext, AuthContextType } from "./authContext";
-import './SubCategory.css'
+// import { AuthContext, AuthContextType } from "./authContext";
+import "./SubCategory.css";
 
 const SubCategory = () => {
-    const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL
+  const API_BASE_URL = import.meta.env.VITE_APP_API_BASE_URL;
 
   const { id } = useParams();
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([
+    { id: "", product_id: "", image: "", name: "", description: "", price: "" },
+  ]);
   const [ProductLoading, setProductLoading] = useState(true);
-  const [ProductError, setProductError] = useState(null);
-  const [ emt, setEmt ] = useState<boolean>()
+  const [ProductError, setProductError] = useState<string | undefined>();
+  const [emt, setEmt] = useState<boolean>();
 
-  const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
-    useContext(AuthContext) as AuthContextType;
+  // const { isAuthenticated, setIsAuthenticated, customer, setCustomer } =
+  //   useContext(AuthContext) as AuthContextType;
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -26,14 +28,15 @@ const SubCategory = () => {
         !data.length ? setEmt(true) : setProducts(data);
         setProductLoading(false);
       } catch (error) {
-        setProductError(error.message);
+        console.error((error as Error).message);
+        setProductError((error as Error).message);
         setProductLoading(false);
       }
     };
 
     fetchProduct();
   }, []);
-  
+
   return (
     <div className="container product-container col-9 rounded-4">
       {ProductLoading && (
@@ -47,7 +50,12 @@ const SubCategory = () => {
           {ProductError}
         </div>
       )}
-      {emt && <h1>or there isn't any product in this category or this isn't a child category</h1>}
+      {emt && (
+        <span className="fs-1 mt-5 px-5 text-center">
+          or there isn't any product in this category or this isn't a child
+          category
+        </span>
+      )}
       {/* intire body for each products */}
       {products.map((product) => (
         <a

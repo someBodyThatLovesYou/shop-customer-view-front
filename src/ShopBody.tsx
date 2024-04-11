@@ -13,7 +13,7 @@ const ShopBody = () => {
   const [message, setMessage] = React.useState();
   const [orderHistoryId, setOrderHistoryId] = React.useState();
   const [orderId, setOrderId] = React.useState();
-  const [newStatus, setNewStatus] = React.useState();
+  const [newStatus, setNewStatus] = React.useState<string>();
 
   React.useEffect(() => {
     const fetchChangeStatus = async () => {
@@ -34,19 +34,35 @@ const ShopBody = () => {
         //   console.log("id: " + each.id + ";" + "status: " + each.status);
         // });
       } catch (error) {
-        console.log(error.message);
+        console.error((error as Error).message);
       }
     };
 
-    fetchChangeStatus();
+    if (isAuthenticated) {
+      fetchChangeStatus();
+    }
 
     const intervalId = setInterval(fetchChangeStatus, 5000);
     // Cleanup function to clear the interval when the component unmounts
     return () => clearInterval(intervalId);
   }, []);
 
-  const statusCheck = (status) => {
-    if (status === "canceled") {
+  const [showAlert, setShowAlert] = React.useState(false);
+
+  React.useEffect(() => {
+    if (
+      message !== "there is not any data for this customer !!" &&
+      isAuthenticated
+    ) {
+      const timer = setTimeout(() => {
+        setShowAlert(true); // Set showAlert to true after 700ms
+      }, 700);
+      return () => clearTimeout(timer); // Clear the timeout if the component unmounts
+    }
+  }, [message, isAuthenticated]);
+
+  const statusCheck = (status: string) => {
+    if (status === "canceled" || status === "canceled ") {
       return "text-danger";
     } else if (status === "completed") {
       return "text-success";
@@ -80,7 +96,7 @@ const ShopBody = () => {
           <span>
             Status of order no.
             <strong className="text-danger">{orderId}</strong> changed to '
-            <strong className={statusCheck(newStatus)}>{newStatus}</strong>'
+            <strong className={statusCheck(newStatus || "")}>{newStatus}</strong>'
           </span>
         </div>
       );
@@ -89,25 +105,7 @@ const ShopBody = () => {
 
   return (
     <>
-      <div className="container px-5">
-        {/* {message.map((data) => (
-          <div
-            className="alert alert-primary fade-alert alert-dismissible"
-            role="alert"
-          >
-            <button
-              type="button"
-              className="btn-close"
-              data-bs-dismiss="alert"
-              aria-label="Close"
-            ></button>
-            Order ID: {data.id}, Status: {data.status}
-          </div>
-        ))} */}
-        {message !== "there is not any data for this customer !!" &&
-          isAuthenticated &&
-          letAlertToBeShown()}
-      </div>
+      <div className="container px-5">{showAlert && letAlertToBeShown()}</div>
       <MainThumbnail />
       <div className="container main-prod-sec mt-5 rounded-5">
         <div className="row rounded">
@@ -115,7 +113,6 @@ const ShopBody = () => {
           <ProductMainFetch />
         </div>
       </div>
-      {/* <div className="alert alert-warning fade-alert">hello</div> */}
     </>
   );
 };
