@@ -117,6 +117,9 @@
       }
 
       & .info-content {
+        font-family: "Merriweather", serif;
+        font-weight: 400;
+        font-style: normal;
         font-size: 60px;
         color: aliceblue;
       }
