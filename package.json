@@ -1,15 +1,15 @@
 {
   "name": "vit-4-0-1-react",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "private": false,
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
+    "serve": "vite preview",
+    "type-check": "tsc --noEmit",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "format": "prettier --write ./src"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
