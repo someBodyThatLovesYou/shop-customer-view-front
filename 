@@ -1,0 +1,14 @@
+core.repositoryformatversion=0
+core.filemode=false
+core.bare=false
+core.logallrefupdates=true
+core.symlinks=false
+core.ignorecase=true
+branch.master.remote=git@github.com:Seraaga022/shop_mainFront.git
+branch.master.merge=refs/heads/master
+remote.master.url=git@github.com:someBodyThatLovesYou/shop-customer-view-front.git
+remote.master.fetch=+refs/heads/*:refs/remotes/master/*
+remote.origin.url=git@github.com:someBodyThatLovesYou/shop-customer-view-front.git
+remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+user.name=someBodyThatLovesYou
+user.email=spotifyPC1287@gmail.com
