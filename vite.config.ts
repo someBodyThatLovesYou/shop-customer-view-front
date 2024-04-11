@@ -10,7 +10,7 @@ export default defineConfig({
   server: {
     host: true,
   },
-  base: "./shop-customer-view-front.github.io",
+  base: "./",
 });
 
 // export default defineConfig({
