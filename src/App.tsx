@@ -19,6 +19,7 @@ const App = () => {
   console.log(isAuthenticated);
 
   const BASE = import.meta.env.DEPLOY_BASE_ORIGIN
+  console.log(BASE)
 
   return (
     <Router>
