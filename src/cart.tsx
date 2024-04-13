@@ -267,7 +267,7 @@ const ShoppingCart = () => {
                         <span className="info-content">{totalCost}$</span>
                       </p>
                       <div className="chack-out-button-label">
-                        <a href={`/${BASE}/CheckOut`} className="chack-out-button">
+                        <a href={`/${BASE}/Cart/CheckOut`} className="chack-out-button">
                           Check out
                         </a>
                       </div>
