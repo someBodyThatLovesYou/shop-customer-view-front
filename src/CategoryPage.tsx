@@ -42,13 +42,13 @@ const CategoryPage = () => {
           {categoryIsLoading && (
             <div className="text-success fs-1 container">Loading ..</div>
           )}
-          {!categoryIsLoading && !empty && categoryError && (
+          {categoryError && (
             <div className="container">
               <span className="text-danger fs-1">Error: </span>
               {categoryError}
             </div>
           )}
-          {category.map((column) => (
+          {!categoryIsLoading && !empty && !categoryError && category.map((column) => (
             <a
               href={`/${BASE}/subCategory/${column.category_id}`}
               className="category-section"
