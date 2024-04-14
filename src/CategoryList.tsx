@@ -27,9 +27,6 @@ const CategoryList = () => {
       }
     };
     fetchCategory();
-    const intervalId = setInterval(fetchCategory, 5000);
-    // Cleanup function to clear the interval when the component unmounts
-    return () => clearInterval(intervalId);
   }, []);
 
   return (
@@ -45,25 +42,27 @@ const CategoryList = () => {
           {categoriesError}
         </div>
       )}
-      {!categoriesLoading && !categoriesError && categories.map((category) => (
-        // intire body for each category
-        <a
-          href={`/${BASE}/category/${category.category_id}`}
-          className="category-div my-4 rounded-4 bg-light"
-          key={category.category_id}
-        >
-          <div className="name-img-part">
-            <h4>{category.name}</h4>
-            <img
-              width={21}
-              height={21}
-              className="category-image"
-              src={`data:image/png;base64,${category.image}`}
-              alt=""
-            />
-          </div>
-        </a>
-      ))}
+      {!categoriesLoading &&
+        !categoriesError &&
+        categories.map((category) => (
+          // intire body for each category
+          <a
+            href={`/${BASE}/category/${category.category_id}`}
+            className="category-div my-4 rounded-4 bg-light"
+            key={category.category_id}
+          >
+            <div className="name-img-part">
+              <h4>{category.name}</h4>
+              <img
+                width={21}
+                height={21}
+                className="category-image"
+                src={`data:image/png;base64,${category.image}`}
+                alt=""
+              />
+            </div>
+          </a>
+        ))}
     </div>
   );
 };
