@@ -288,9 +288,9 @@ const Profile = () => {
                 {/* notification body */}
                 <div
                   className={`${
-                    alertShown || "d-none"
-                  } end-0 top-0 z-1 position-absolute py-2 pr-4 m-4 alert alert-primary fade-alert alert-dismissible`}
-                  role="alert"
+                    alertShown && showMessage !== "" ? "show" : "d-none"
+                   } end-0 top-0 z-1 position-absolute py-2 pr-4 m-4 alert alert-primary fade-alert alert-dismissible`}
+                   role="alert"
                 >
                   <button
                     type="button"
