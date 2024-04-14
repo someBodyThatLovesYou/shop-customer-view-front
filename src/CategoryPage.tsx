@@ -42,7 +42,7 @@ const CategoryPage = () => {
           {categoryIsLoading && (
             <div className="text-success fs-1 container">Loading ..</div>
           )}
-          {categoryError && (
+          {!categoryIsLoading && !empty && categoryError && (
             <div className="container">
               <span className="text-danger fs-1">Error: </span>
               {categoryError}
